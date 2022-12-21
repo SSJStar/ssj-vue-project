@@ -4,6 +4,7 @@
     <WYHeadNav></WYHeadNav>
     <!-- 跑马灯 -->
     <PaoMaDeng></PaoMaDeng>
+    <!-- 核心内容 -->
     <div class="row">
       <!-- 左边这一列 -->
       <div class="column-left">
@@ -23,6 +24,10 @@
         <!-- 热门主播 -->
         <HotAnchor></HotAnchor>
       </div>
+    </div>
+    <!-- 底部信息 -->
+    <div class="bottomDiv">
+      <label>本页面是模仿网易云音乐</label>
     </div>
   </div>
 </template>
@@ -46,6 +51,7 @@ import HotAnchor from "@/views/wymusic/HotAnchor.vue";
   position: absolute; /*不加这句，高度不能铺满*/
   background-color: #f5f5f5;
 }
+
 /* 横向布局 */
 .row {
   display: flex;
@@ -71,5 +77,14 @@ import HotAnchor from "@/views/wymusic/HotAnchor.vue";
   padding-right: 20px;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
+}
+
+/* 底部信息布局 */
+.bottomDiv {
+  height: 70px;
+  background-color: #f2f2f2;
+}
+.bottomDiv label{
+  color: #666;
 }
 </style>
