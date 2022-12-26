@@ -8,14 +8,22 @@
       </el-carousel-item>
     </el-carousel>
     <!-- 下载 -->
-    <div style="width: 250px; background-color: #42b983">
-      <img class="download-img" :src="downLoadUrl" />
+    <!--    <div style="width: 250px; background-color: #42b983">-->
+    <!--      <img class="download-img" :src="downLoadUrl" />-->
+    <!--      <label style="float: top">PC 安卓 iPhone WP iPad Mac 六大客户端</label>-->
+    <!--    </div>-->
+    <div class="down-div">
+      <!--      <img class="download-img" :src="downLoadUrl" />-->
+      <label class="down-div-label"
+        >PC 安卓 iPhone WP iPad Mac 六大客户端</label
+      >
     </div>
   </div>
 </template>
 
 <script setup>
 // 图片地址
+// const localLoadUrl = "@/assets/wymusic/wymusic_download.jpg";
 const downLoadUrl = require("@/assets/wymusic/wymusic_download.jpg");
 
 /**
@@ -37,19 +45,44 @@ let loadCarouselUrl = (index) => {
   padding-left: calc((100% - 980px) * 0.5);
   padding-right: calc((100% - 980px) * 0.5);
   display: flex;
+  background-size: 6000px;
+  background-image: url("@/assets/wymusic/yymusic_paoma_bg_img.jpg");
+  /*:background-image: url("https://www.bilibili.com/video/BV1GB4y177AN/?spm_id_from=333.788&vd_source=4e1816e25a760cb9dcd20fb7c36633e6");*/
 }
+/*.paoma {*/
+/*  display: flex;*/
+/*}*/
 
 .el-carousel {
   width: calc(980px - 250px);
   /** 加1px是为了凑整，否则会出现导航条*/
-  height: calc(730px / (1080 / 420)) + 1px;
+  height: calc(730px / (1080 / 420) + 1px);
 }
 
 .el-carousel-item-img {
   position: relative;
 }
-.download-img {
-  width: 100%;
-  height: 100%;
+
+.down-div {
+  width: 250px;
+  background-color: pink;
+  /*background-image: url("@/assets/wymusic/wymusic_download.jpg");*/
+  background-image: url("@/assets/wymusic/wymusic_download.jpg");
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
+.down-div-label {
+  /*float: bottom;*/
+  position: absolute;
+  color: white;
+  font-size: 12px;
+  /*background-color: #42b983;*/
+  bottom: 10px;
+  width: 100%;
+}
+/*.download-img {*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*}*/
 </style>

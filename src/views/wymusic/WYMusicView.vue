@@ -84,7 +84,7 @@ import HotAnchor from "@/views/wymusic/HotAnchor.vue";
   height: 70px;
   background-color: #f2f2f2;
 }
-.bottomDiv label{
+.bottomDiv label {
   color: #666;
 }
 </style>
