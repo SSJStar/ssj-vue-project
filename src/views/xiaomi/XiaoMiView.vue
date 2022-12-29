@@ -1,5 +1,5 @@
 <template>
-  <div class="xiao_mi" @scroll="scrollEvent" ref="xiaoMiDivRef">
+  <div class="xiao_mi" ref="xiaoMiDivRef">
     <!-- 导航 -->
     <XiaoMiNavagation class="XiaoMiNavagation"></XiaoMiNavagation>
     <!-- 主体内容 -->
@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 const xiaoMiDivRef = ref();
 import XiaoMiNavagation from "@/views/xiaomi/XiaoMiNavagation.vue";
 const list_datas = [
@@ -78,6 +78,13 @@ const list_datas = [
   ],
 ];
 
+onMounted(() => {
+  // xiaoMiDivRef.value.addEventListener("scroll", scrollEvent());
+  xiaoMiDivRef.value.addEventListener("scroll", () => {
+    console.log("aaa~~~");
+    console.log(xiaoMiDivRef.value.scrollTop);
+  });
+});
 /**
  * 图片点击
  *
@@ -91,12 +98,18 @@ const imgClick = (row: any, num: any) => {
   // window.open("");
 };
 
-const scrollEvent = () => {
-  // document.getElementsByClassName("").scr
-  // console.log(e.srcElement.scrollTop || e.target.scrollTop); // 获取目标元素的滚动高度
-  console.log("~~~");
-  console.log(xiaoMiDivRef.value.scrollTop);
-};
+// const scrollEvent = (e: any) => {
+//   // document.getElementsByClassName("").scr
+//   // console.log(e.srcElement.scrollTop || e.target.scrollTop); // 获取目标元素的滚动高度
+//   console.log("~~~");
+//   console.log(xiaoMiDivRef.value.scrollTop);
+// };
+//
+// function scroll(e: {
+//   srcElement: { scrollTop: any; offsetHeight: any; scrollHeight: number };
+// }) {
+//   console.log("1111111");
+// }
 </script>
 
 <style scoped>
