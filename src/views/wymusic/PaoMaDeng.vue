@@ -26,6 +26,9 @@
 // const localLoadUrl = "@/assets/wymusic/wymusic_download.jpg";
 const downLoadUrl = require("@/assets/wymusic/wymusic_download.jpg");
 
+const bgImg = require("@/assets/wymusic/yymusic_paoma_bg_img.jpg");
+// const bgImg2 = "@/assets/wymusic/yymusic_paoma_bg_img.jpg";
+
 /**
  * 获取轮播图URL地址
  *
@@ -35,7 +38,7 @@ const downLoadUrl = require("@/assets/wymusic/wymusic_download.jpg");
  * @return {string}
  */
 let loadCarouselUrl = (index) => {
-  //这里加require是因为，img的src默认被作为静态资源使用，动态棒的是不生效的，用require修饰就可以显示了
+  //这里加require是因为，img的src默认被作为静态资源使用，动态使用的是不生效的，用require修饰就可以显示了
   return require("@/assets/wymusic/wymusic_carousel_0" + index + ".jpg");
 };
 </script>
@@ -47,6 +50,9 @@ let loadCarouselUrl = (index) => {
   display: flex;
   background-size: 6000px;
   background-image: url("@/assets/wymusic/yymusic_paoma_bg_img.jpg");
+  /*background-image: "url(" +*/
+  /*  require("@/assets/wymusic/yymusic_paoma_bg_img.jpg") + ")";*/
+  /*background-image: "url(" + v-bind(bgImg) + ")";*/
   /*:background-image: url("https://www.bilibili.com/video/BV1GB4y177AN/?spm_id_from=333.788&vd_source=4e1816e25a760cb9dcd20fb7c36633e6");*/
 }
 /*.paoma {*/
@@ -56,7 +62,7 @@ let loadCarouselUrl = (index) => {
 .el-carousel {
   width: calc(980px - 250px);
   /** 加1px是为了凑整，否则会出现导航条*/
-  height: calc(730px / (1080 / 420) + 1px);
+  /*height: calc(730px / (1080 / 420) + 1px);*/
 }
 
 .el-carousel-item-img {
