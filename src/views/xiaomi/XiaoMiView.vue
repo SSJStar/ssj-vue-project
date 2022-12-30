@@ -1,14 +1,15 @@
 <template>
-  <div class="xiao_mi" ref="xiaoMiDivRef">
+  <div class="xiao_mi" @scroll="scrollEvent">
     <!-- 导航 -->
     <XiaoMiNavagation class="XiaoMiNavagation"></XiaoMiNavagation>
-    <!-- 主体内容 -->
-    <!--    <div v-for="(items, index) in list_datas" :key="items.index" @click="imgClick(index)">-->
-    <!--      <img :src="item.img" alt="" />-->
-    <!--    </div>-->
 
+    <!-- 主体内容 -->
     <div>
-      <div v-for="(items, index) in list_datas" :key="items.index">
+      <div
+        class="v-for"
+        v-for="(items, index) in list_datas"
+        :key="items.index"
+      >
         <div
           v-for="(item, index2) in items"
           :key="item.index"
@@ -18,13 +19,64 @@
         </div>
       </div>
     </div>
+
     <!-- 底部 -->
-    <div class="bottomDiv">
-      <label>本页面是模仿网易云音乐</label>
+    <div class="bottom-div">
+      <label>模仿小米官网</label>
+      <el-row class="bottom-div-main">
+        <!--    菜单    -->
+        <el-col :span="18">
+          <!--    第一行    -->
+          <el-row class="row1">
+            <el-col :span="4"></el-col>
+            <!--  style="background-color: #999"  -->
+            <el-col :span="4"><label>选购指南</label></el-col>
+            <!--  style="background-color: yellowgreen"  -->
+            <el-col :span="4"><label>服务中心</label></el-col>
+            <!--  style="background-color: pink"  -->
+            <el-col :span="4"><label>线下门店</label></el-col>
+            <!--  style="background-color: lightslategray"  -->
+            <el-col :span="4"><label>关于小米</label></el-col>
+            <el-col :span="4"><label>关注我们</label></el-col>
+          </el-row>
+          <!--    第二行    -->
+          <el-row class="row2">
+            <el-col :span="4"></el-col>
+            <el-col :span="4"><label>手机</label></el-col>
+            <el-col :span="4"><label>申请售后</label></el-col>
+            <el-col :span="4"><label>小米之家</label></el-col>
+            <el-col :span="4"><label>了解小米</label></el-col>
+            <el-col :span="4"><label>新浪微博</label></el-col>
+          </el-row>
+          <!--    第三行    -->
+          <el-row class="row3">
+            <el-col :span="4"></el-col>
+            <el-col :span="4"><label>电视</label></el-col>
+            <el-col :span="4"><label>售后政策</label></el-col>
+            <el-col :span="4"><label>服务网点</label></el-col>
+            <el-col :span="4"><label>加入小米</label></el-col>
+            <el-col :span="4"><label>官方微信</label></el-col>
+          </el-row>
+        </el-col>
+        <!--    400-100-5678    -->
+        <el-col class="contact-col" :span="6">
+          <el-row class="contact-col-row">
+            <label class="phone">400-100-5678</label>
+          </el-row>
+          <el-row class="contact-col-row">
+            <label class="time">8:00-18:00(仅收市话费)</label>
+          </el-row>
+          <el-row class="contact-col-row">
+            <div class="service-div">
+              <img src="@/assets/xiaomi/xiaomi_message.png" alt="" />
+              <label class="service">人工客服</label>
+            </div>
+          </el-row>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
-
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 const xiaoMiDivRef = ref();
@@ -33,7 +85,7 @@ const list_datas = [
   [
     {
       img: "https://img.youpin.mi-img.com/ferriswheel/0bcd9a3b_a0d8_44da_9461_266728a2799a.jpeg?w=2560&amp;h=1080",
-      url: "",
+      url: "https://www.mi.com/a/h/27112.html?sign=a7d51e68dee610c4cf3d1a062b553ab0&spmref=mihomepage.mtl_634a94febe07770001c7d35e.1",
     },
   ],
   [
@@ -45,13 +97,13 @@ const list_datas = [
   [
     {
       img: "https://img.youpin.mi-img.com/ferriswheel/40e9e799_93a6_43a2_b758_9c91c6ed726c.jpeg?w=2560&amp;h=1080",
-      url: "",
+      url: "https://www.mi.com/redmi-k60-pro?spmref=mihomepage.mtl_63958f408a1e0e0001c29225.1",
     },
   ],
   [
     {
       img: "https://img.youpin.mi-img.com/ferriswheel/e5395cf8_3fa0_473b_a2d1_645272e66e6b.jpeg?w=2560&amp;h=1080",
-      url: "",
+      url: "https://home.miui.com/?spmref=mihomepage.mtl_6395926d352df3000153a4d2.1",
     },
   ],
   [
@@ -77,14 +129,20 @@ const list_datas = [
     },
   ],
 ];
+// 导航背景色
+const nav_bg_color = ref("rgba(0, 0, 0, 0.0)");
 
-onMounted(() => {
-  // xiaoMiDivRef.value.addEventListener("scroll", scrollEvent());
-  xiaoMiDivRef.value.addEventListener("scroll", () => {
-    console.log("aaa~~~");
-    console.log(xiaoMiDivRef.value.scrollTop);
-  });
-});
+const scrollEvent = (e: any) => {
+  // console.log(e.srcElement.scrollTop,);
+  // console.log(e.srcElement.scrollTop || e.target.scrollTop); // 获取目标元素的滚动高度
+  // console.log(e.target.scrollTop); // 获取目标元素的滚动高度
+  if (e.target.scrollTop > 10) {
+    navBgColor(true);
+  } else {
+    navBgColor(false);
+  }
+};
+
 /**
  * 图片点击
  *
@@ -95,9 +153,16 @@ onMounted(() => {
  */
 const imgClick = (row: any, num: any) => {
   console.log("点击图片 -- " + row);
-  // window.open("");
 };
 
+const navBgColor = (show: boolean) => {
+  // if (show) {
+  //   console.log("0.85");
+  // } else {
+  //   console.log("0.0");
+  // }
+  nav_bg_color.value = show ? "rgba(0, 0, 0, 0.85)" : "rgba(0, 0, 0, 0)";
+};
 // const scrollEvent = (e: any) => {
 //   // document.getElementsByClassName("").scr
 //   // console.log(e.srcElement.scrollTop || e.target.scrollTop); // 获取目标元素的滚动高度
@@ -115,28 +180,74 @@ const imgClick = (row: any, num: any) => {
 <style scoped>
 .xiao_mi {
   width: 100%;
-  height: 100%;
+  height: 1000px;
   position: absolute;
-  /*background-color: #42b983;*/
-  /*width: 100%;*/
-  /*height: 100%;*/
-  /*overflow-y: scroll; !** 超出屏幕，可以滚动 *!*/
-  /*position: absolute; !*不加这句，高度不能铺满*!*/
-  /*background-color: #42b983;*/
+  overflow-y: scroll; /* 不设置这个属性，@scroll不生效 */
 }
 
 .XiaoMiNavagation {
   position: fixed; /* 固定 */
   float: top;
+  background-color: v-bind(nav_bg_color);
+}
+
+.v-for {
+  display: flex;
 }
 
 /* 底部信息布局 */
-.bottomDiv {
-  height: 70px;
-  background-color: #f2f2f2;
+.bottom-div {
+  /*height: 70px;*/
+  /*background-color: #f2f2f2;*/
 }
-.bottomDiv label {
+.bottom-div label {
   color: #666;
+}
+
+.bottom-div-main {
+  margin: 20px 0;
+}
+
+.row1 label {
+  color: #424242;
+  font-size: 14px;
+  font-family: "Microsoft Sans Serif";
+}
+.row2 label,
+.row3 label {
+  color: #757575;
+  font-size: 12px;
+  font-family: "Microsoft Sans Serif";
+}
+
+.contact-col-row {
+  justify-content: center;
+}
+.contact-col .phone {
+  color: #ff6900;
+  font-size: 22px;
+  font-weight: bold;
+}
+.contact-col .time {
+  color: #616161;
+  font-size: 12px;
+}
+/* 人工客服 */
+.contact-col .service-div {
+  border: 1px solid #ff6700;
+  width: 118px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.contact-col .service {
+  color: #ff6700;
+  font-size: 12px;
+}
+.service-div img {
+  width: 12px;
+  height: 12px;
 }
 </style>
 <script setup lang="ts"></script>
