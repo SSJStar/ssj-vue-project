@@ -1,5 +1,5 @@
 <template>
-  <div class="xiao_mi" @scroll="scrollEvent">
+  <div class="xiao_mi" id="mi" @scroll="scrollEvent">
     <!-- 导航 -->
     <XiaoMiNavagation class="XiaoMiNavagation"></XiaoMiNavagation>
 
@@ -24,18 +24,14 @@
     <div class="bottom-div">
       <label>模仿小米官网</label>
       <el-row class="bottom-div-main">
-        <!--    菜单    -->
+        <!--   左边内容： 菜单    -->
         <el-col :span="18">
           <!--    第一行    -->
           <el-row class="row1">
             <el-col :span="4"></el-col>
-            <!--  style="background-color: #999"  -->
             <el-col :span="4"><label>选购指南</label></el-col>
-            <!--  style="background-color: yellowgreen"  -->
             <el-col :span="4"><label>服务中心</label></el-col>
-            <!--  style="background-color: pink"  -->
             <el-col :span="4"><label>线下门店</label></el-col>
-            <!--  style="background-color: lightslategray"  -->
             <el-col :span="4"><label>关于小米</label></el-col>
             <el-col :span="4"><label>关注我们</label></el-col>
           </el-row>
@@ -58,15 +54,18 @@
             <el-col :span="4"><label>官方微信</label></el-col>
           </el-row>
         </el-col>
-        <!--    400-100-5678    -->
+        <!--    右边内容：400-100-5678    -->
         <el-col class="contact-col" :span="6">
           <el-row class="contact-col-row">
+            <!--   联系电话    -->
             <label class="phone">400-100-5678</label>
           </el-row>
           <el-row class="contact-col-row">
+            <!--   时间段    -->
             <label class="time">8:00-18:00(仅收市话费)</label>
           </el-row>
           <el-row class="contact-col-row">
+            <!--   人工客服    -->
             <div class="service-div">
               <img src="@/assets/xiaomi/xiaomi_message.png" alt="" />
               <label class="service">人工客服</label>
@@ -75,12 +74,19 @@
         </el-col>
       </el-row>
     </div>
+
+    <!-- 置顶按钮：悬浮在所有页面上面 -->
+    <button v-show="show_topButton" class="goto-top" @click="topAction()">
+      <img src="@/assets/xiaomi/xiaomi_jiantou_top.png" alt="" />
+      TOP
+    </button>
   </div>
 </template>
+
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-const xiaoMiDivRef = ref();
+import { ref } from "vue";
 import XiaoMiNavagation from "@/views/xiaomi/XiaoMiNavagation.vue";
+
 const list_datas = [
   [
     {
@@ -128,18 +134,20 @@ const list_datas = [
       url: "",
     },
   ],
-];
-// 导航背景色
-const nav_bg_color = ref("rgba(0, 0, 0, 0.0)");
+]; // 列表数据源
 
+const nav_bg_color = ref("rgba(0, 0, 0, 0.0)"); // 导航背景色
+
+const show_topButton = ref(false); //是否显示"置顶按钮"
+
+/**  页面滑动事件 */
 const scrollEvent = (e: any) => {
-  // console.log(e.srcElement.scrollTop,);
-  // console.log(e.srcElement.scrollTop || e.target.scrollTop); // 获取目标元素的滚动高度
-  // console.log(e.target.scrollTop); // 获取目标元素的滚动高度
   if (e.target.scrollTop > 10) {
     navBgColor(true);
+    show_topButton.value = true;
   } else {
     navBgColor(false);
+    show_topButton.value = false;
   }
 };
 
@@ -155,32 +163,21 @@ const imgClick = (row: any, num: any) => {
   console.log("点击图片 -- " + row);
 };
 
+/** 是否显示导航 - 背景颜色 */
 const navBgColor = (show: boolean) => {
-  // if (show) {
-  //   console.log("0.85");
-  // } else {
-  //   console.log("0.0");
-  // }
   nav_bg_color.value = show ? "rgba(0, 0, 0, 0.85)" : "rgba(0, 0, 0, 0)";
 };
-// const scrollEvent = (e: any) => {
-//   // document.getElementsByClassName("").scr
-//   // console.log(e.srcElement.scrollTop || e.target.scrollTop); // 获取目标元素的滚动高度
-//   console.log("~~~");
-//   console.log(xiaoMiDivRef.value.scrollTop);
-// };
-//
-// function scroll(e: {
-//   srcElement: { scrollTop: any; offsetHeight: any; scrollHeight: number };
-// }) {
-//   console.log("1111111");
-// }
+
+/** 置顶按钮 - 点击事件 */
+const topAction = () => {
+  document.getElementById("mi")!.scrollTo(0, 0);
+};
 </script>
 
 <style scoped>
 .xiao_mi {
   width: 100%;
-  height: 1000px;
+  height: 100%;
   position: absolute;
   overflow-y: scroll; /* 不设置这个属性，@scroll不生效 */
 }
@@ -196,10 +193,6 @@ const navBgColor = (show: boolean) => {
 }
 
 /* 底部信息布局 */
-.bottom-div {
-  /*height: 70px;*/
-  /*background-color: #f2f2f2;*/
-}
 .bottom-div label {
   color: #666;
 }
@@ -248,6 +241,23 @@ const navBgColor = (show: boolean) => {
 .service-div img {
   width: 12px;
   height: 12px;
+}
+
+/* 置顶 */
+.goto-top {
+  width: 42px;
+  height: 62px;
+  top: 100px;
+  right: 100px;
+  background-color: #acacac;
+  position: fixed;
+  border-width: 0;
+  border-radius: 10px;
+  color: white;
+}
+.goto-top img {
+  width: 32px;
+  height: 32px;
 }
 </style>
 <script setup lang="ts"></script>

@@ -16,7 +16,7 @@
     <!-- 注册｜登录 -->
     <div class="login_or_register">
       <label>登录</label>
-      <span style="margin-left: 10px; margin-right: 10px">|</span>
+      <div class="split-line"></div>
       <label>注册</label>
     </div>
   </div>
@@ -24,7 +24,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-const selectedIndex = ref(0);
+
+const selectedIndex = ref(0); //记录，点击了哪个菜单下标
+
+// 数据源
 const menus = [
   { title: "小米官网", url: "" },
   { title: "小米商城", url: "https://www.mi.com/shop" },
@@ -38,16 +41,17 @@ const menus = [
   { title: "企业团购", url: "https://xiaoai.mi.com/" },
 ];
 
+/** 根据下标，返回对应的字体颜色 */
 const titleColor = (index: any) => {
   if (index === selectedIndex.value) {
-    return "#ff6900";
+    return "#ff6900"; //被选中时候的字体颜色
   }
   return "white";
 };
-// 点击
+
+/** 菜单 - 点击事件 */
 const menueClick = (index: any) => {
-  if (index == 0) return;
-  console.log("点击了" + index + " title:" + menus[index].title);
+  if (index == 0) return; //第0个就是当前页，不需要做什么
   selectedIndex.value = index;
   window.open(menus[index].url);
 };
@@ -62,14 +66,15 @@ const menueClick = (index: any) => {
   align-items: center;
 }
 
+/* 图标 */
 .xiaomi_nav img {
   margin-left: 17px;
   width: 34px;
   height: 34px;
 }
+/* 菜单区域 */
 .nav_body {
   display: flex;
-  /*background-color: burlywood;*/
   flex: auto;
   justify-content: center;
 }
@@ -83,11 +88,18 @@ const menueClick = (index: any) => {
   font-size: 13px;
 }
 
+/* 登录 ｜ 注册 */
 .login_or_register {
+  display: flex;
   margin-right: 17px;
-  /*background-color: #666666;*/
-}
-.login_or_register label {
   color: white;
+  font-size: 14px;
+}
+/* 竖直线 - 样式 */
+.login_or_register .split-line {
+  width: 1px;
+  height: 10px;
+  margin: 5px 20px;
+  background-color: white;
 }
 </style>
