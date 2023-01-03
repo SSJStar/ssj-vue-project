@@ -127,9 +127,9 @@ function loginActionFunc() {
   //   console.log(`读取~~~ ${sessionStorageManager.getLoginState()}`);
   // }, 1000);
   // return;
-  // let n = "汤姆森.金";
-  // router.push(`/layoutView?title=${n}`); //跳转布局页
-  // return;
+  let n = "汤姆森.金";
+  router.push(`/layoutView?title=${n}`); //跳转布局页
+  return;
 
   // console.log("输入的验证码:" + loginInput.codeInputValue);
 
