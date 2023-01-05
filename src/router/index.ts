@@ -93,6 +93,11 @@ const routes = [
     name: "test",
     component: () => import("@/views/other/TestSSJ.vue"),
   },
+  {
+    path: "/bubbleView",
+    name: "bubbleView",
+    component: () => import("@/views/other/BubbleView.vue"),
+  },
 ];
 
 const router = createRouter({
