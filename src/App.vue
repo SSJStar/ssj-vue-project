@@ -15,7 +15,7 @@ export default {
 </script>
 
 <script setup>
-import { getCurrentInstance, onMounted, provide, ref } from "vue";
+import { onMounted, provide, ref } from "vue";
 import sessionStorageManager from "@/statics/sessionStorageManager.js";
 
 // import router from "@/router";
@@ -48,7 +48,7 @@ onMounted(() => {
   // const loginState =
   //   getCurrentInstance().appContext.config.globalProperties.$global.globalObj
   //     .loginState;
-  return;
+  // return;
   // eslint-disable-next-line no-unreachable
   if (sessionStorageManager.getLoginState() === false) {
     console.log("请先登录---");

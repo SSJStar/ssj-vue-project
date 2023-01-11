@@ -49,10 +49,10 @@ let mouthInBox = false; //当前光标是否在列表上
 // const route = useRoute();
 
 // 设置导航栏高度、背景颜色、字体大小、字体颜色
-let navgation_height = staticVars.NAVGATION_HEIGHT;
-let navgation_bgColor = staticVars.NAVGATION_BGCOLOR;
-let navgation_fontSize = staticVars.NAVGATION_TITLEFONTSIZE;
-let navgation_titleColor = staticVars.NAVGATION_TITLECOLOR;
+const navgation_height = staticVars.NAVGATION_HEIGHT;
+const navgation_bgColor = staticVars.NAVGATION_BGCOLOR;
+const navgation_fontSize = staticVars.NAVGATION_TITLEFONTSIZE;
+const navgation_titleColor = staticVars.NAVGATION_TITLECOLOR;
 
 // // 监听函数监听路径的变化
 // watch(
@@ -112,12 +112,12 @@ onMounted(function () {
 
 /** 鼠标移动事件*/
 // 移入到头像 ，显示展示列表
-function mouthIntoHead() {
+const mouthIntoHead = () => {
   boxShow.value = true;
-}
+};
 
 // 移出头像 ，隐藏展示列表
-function mouthLeaveHead() {
+const mouthLeaveHead = () => {
   // 1秒后判断：如果光标不在列表上就隐藏
   setTimeout(() => {
     console.log("mouthInBox---" + mouthInBox);
@@ -125,7 +125,7 @@ function mouthLeaveHead() {
       boxShow.value = false;
     }
   }, 100);
-}
+};
 
 // 鼠标移入列表 ，显示展示列表
 function mouthIntoBox() {
