@@ -1,7 +1,7 @@
 <template>
   <div class="head-nav">
     <div style="position: absolute; text-align: center">
-      <label>Demo组件学习</label>
+      <label>贴吧项目</label>
     </div>
 
     <!--  头像 + 昵称  -->

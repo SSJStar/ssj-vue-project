@@ -36,6 +36,12 @@ const routes = [
         name: "childBodyView",
         component: () => import("../views/MenuBodyView.vue"),
       },
+      // 文章列表
+      {
+        path: "barListView",
+        name: "barListView",
+        component: () => import("../views/post_bar/BarListView.vue"),
+      },
       {
         //xlsx文件的读取和导出
         path: "xlsxView",
@@ -58,6 +64,16 @@ const routes = [
         path: "bTChatViewOld",
         name: "bTChatViewOld",
         component: () => import("../views/other/BTChatViewOld.vue"),
+      },
+      {
+        path: "wy",
+        name: "wy",
+        component: () => import("@/views/wymusic/WYMusicView.vue"),
+      },
+      {
+        path: "xiaomi",
+        name: "xiaomi",
+        component: () => import("@/views/xiaomi/XiaoMiView.vue"),
       },
     ],
   },
