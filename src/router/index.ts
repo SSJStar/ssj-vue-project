@@ -7,7 +7,8 @@ const routes = [
     name: "homeView",
     // component: () => import("../views/MenuBodyView.vue"),
     // component: () => import("@/views/wymusic/WYMusicView.vue"),
-    component: () => import("@/views/xiaomi/XiaoMiView.vue"),
+    // component: () => import("@/views/xiaomi/XiaoMiView.vue"),
+    component: () => import("../views/post_bar/AddNewBarView.vue"),
   },
   //注册
   {
@@ -41,6 +42,12 @@ const routes = [
         path: "barListView",
         name: "barListView",
         component: () => import("../views/post_bar/BarListView.vue"),
+      },
+      // 新增文章
+      {
+        path: "addNewBarView",
+        name: "addNewBarView",
+        component: () => import("../views/post_bar/AddNewBarView.vue"),
       },
       {
         //xlsx文件的读取和导出
