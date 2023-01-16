@@ -75,9 +75,8 @@ const barlist = ref([
       "许仙和白娘子爱情传说\n" +
       "这个故事让断桥成为西湖上最著名的桥。白娘子是山中修炼的一条小白蛇，被一个捕蛇老人抓住，差一点遭遇杀身之祸，被一个小牧童所救。经过修炼，白娘子化做人形，来到杭州西湖报恩。观音大士说“有缘千里来相会，须往西湖高处寻”。在杭州西湖的断桥上，白娘子找到了前世的救命恩人许仙，以身相许，结为夫妻。在经历水漫金山，在断桥邂逅重逢，续前缘。",
     img_urls: [
-      "https://img2.baidu.com/it/u=923478948,106462584&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281",
-      "https://lmg.jj20.com/up/allimg/tp08/45041324391718-lp.jpg",
-      "https://img13.51tietu.net/pic/20200120/pg53i3ybyoapg53i3ybyoa.jpg",
+      "https://nimg.ws.126.net/?url=https://dingyue.ws.126.net/2021/0502/a722d4ecj00qshi0000soc001jk00y1m.jpg&thumbnail=650x2147483647&quality=80&type=jpg",
+      "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fss2.meipian.me%2Fusers%2F5896609%2Fdc885fdee5df415d99b61c4a8bdc4559.jpg%3Fmeipian-raw%2Fbucket%2Fivwen%2Fkey%2FdXNlcnMvNTg5NjYwOS9kYzg4NWZkZWU1ZGY0MTVkOTliNjFjNGE4YmRjNDU1OS5qcGc%3D%2Fsign%2F9f61c56de478947f9348895514c94d60.jpg&refer=http%3A%2F%2Fss2.meipian.me&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1676451781&t=41d1a949c4213d848da723ede3482804",
     ],
   },
 ]);
