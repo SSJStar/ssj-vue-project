@@ -1,7 +1,12 @@
 <template>
   <div class="barlist_div">
     <!--    <label>文章列表</label>-->
-    <div class="v-for-div" v-for="bar in barlist" :key="bar.bar_id">
+    <div
+      class="v-for-div"
+      v-for="(bar, index) in barlist"
+      :key="bar.bar_id"
+      @click="barClick(index)"
+    >
       <div class="title_type_div">
         <label class="bar_title">{{ bar.title }}</label>
         <label class="bar_type">{{ bar.type }}</label>
@@ -13,6 +18,7 @@
 
 <script setup>
 import { ref } from "vue";
+import router from "@/router";
 
 const barlist = ref([
   {
@@ -35,9 +41,8 @@ const barlist = ref([
       "宁波汤圆，作为浙江宁波最著名的特色小吃，不但是春节，元宵节的食俗，而且历史十分悠久。据说，宁波汤圆起源于宋朝，是用黑芝麻，猪油，白砂糖，糯米粉做成...\n" +
       "金华汤包，提到金华很多人第一想到的是金华火腿，其实在金华出名的不只是火腿，还有汤包，在当地具有“金华第一点”的美誉，也是南方小吃汤包中的佼佼..",
     img_urls: [
-      "https://img2.baidu.com/it/u=923478948,106462584&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281",
-      "https://lmg.jj20.com/up/allimg/tp08/45041324391718-lp.jpg",
-      "https://img13.51tietu.net/pic/20200120/pg53i3ybyoapg53i3ybyoa.jpg",
+      "https://www.67cy.com/d/file/p/20201028/8d735970eae1396acef6e5f0f0848edb.jpg",
+      "https://img1.baidu.com/it/u=2148869572,3414617910&fm=253&fmt=auto&app=138&f=JPEG?w=600&h=420",
     ],
   },
   {
@@ -76,6 +81,20 @@ const barlist = ref([
     ],
   },
 ]);
+
+// const barClick = (index) => {
+//   console.log("点击了贴吧" + index);
+// };
+
+function barClick(index) {
+  // console.log("点击了贴吧" + index);
+  // router.push("/layoutView/barDetailView?type='哈咯'"); //链接暴露参数
+  // router.push({ path: "/layoutView/barDetailView", query: { name: "张大" } }); //链接暴露参数
+
+  let jsondata = JSON.stringify(barlist.value[index]);
+  router.push({ name: "barDetailView", params: { jsonString: jsondata } });
+  // router.push({ path: "/layoutView/barDetailView", query: { title: pa } });
+}
 </script>
 
 <style scoped>

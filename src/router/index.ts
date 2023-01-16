@@ -43,6 +43,12 @@ const routes = [
         name: "barListView",
         component: () => import("../views/post_bar/BarListView.vue"),
       },
+      // 文章详情
+      {
+        path: "barDetailView/:jsonString",
+        name: "barDetailView",
+        component: () => import("../views/post_bar/BarDetailView.vue"),
+      },
       // 新增文章
       {
         path: "addNewBarView",
