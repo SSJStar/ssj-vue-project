@@ -359,6 +359,7 @@ function childSelectAction(index) {
   flex: 1;
   /*height: calc(100% - 51px);*/
   background-color: white;
+  height: calc(100% - 50px);
 }
 
 body {
