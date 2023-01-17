@@ -41,10 +41,10 @@ const commentList = {
   list: [
     {
       comment_id: "10235", //评论编号
-      user_id: "100014",
-      nick_name: "张三",
-      head_url: "", //评论人头像URL地址
-      replyfrom: "", //回复谁的评论，如果为空表示文章的评论，而并非回复内容
+      user_id: "100014", //当前评论人的用户ID
+      nick_name: "张三", //当前评论人昵称
+      head_url: "", //当前评论人头像URL地址
+      reply_from: "", //回复谁的评论，如果为空表示文章的评论，而并非回复内容
       reply_name: "", //回复谁的评论(昵称)
       comment_num: "1", //第几条评论/回复
       comment_content: "文章不错哟",
@@ -56,7 +56,7 @@ const commentList = {
           user_id: "100016",
           nick_name: "王五",
           comment_num: "1", //第几条评论/回复
-          comment_content: "文章不错哟",
+          comment_content: "说的没错",
         },
         {
           comment_id: "10237", //本条评论编号
@@ -65,7 +65,7 @@ const commentList = {
           user_id: "100014",
           nick_name: "张三",
           comment_num: "2", //第几条评论/回复
-          comment_content: "谢谢王五同学的肯定",
+          comment_content: "谢谢王五的肯定",
         },
         {
           comment_id: "10238", //本条评论编号
@@ -74,7 +74,7 @@ const commentList = {
           user_id: "100016",
           nick_name: "王五",
           comment_num: "1", //第几条评论/回复
-          comment_content: "作者客气了",
+          comment_content: "张三客气了",
         },
       ],
     },
@@ -82,7 +82,7 @@ const commentList = {
       comment_id: "10240", //评论编号
       user_id: "100021",
       nick_name: "林奇",
-      replyfrom: "", //回复谁的评论，如果为空表示文章的评论，而并非回复内容
+      reply_from: "", //回复谁的评论，如果为空表示文章的评论，而并非回复内容
       reply_name: "张三", //回复谁的评论(昵称)
       comment_num: "2", //第几条评论/回复
       comment_content: "文章不错，已经收藏了",
@@ -93,8 +93,8 @@ const commentList = {
           reply_name: "林奇", //回复谁的评论(昵称)
           user_id: "100033",
           nick_name: "海大富",
-          comment_num: "1", //第几条评论/回复
-          comment_content: "文章不错哟",
+          comment_num: "1", //第几条评论/回复 这个字段暂时没用到
+          comment_content: "双击666",
         },
         {
           comment_id: "10242", //本条评论编号
@@ -103,7 +103,7 @@ const commentList = {
           user_id: "100053",
           nick_name: "林菲儿",
           comment_num: "2", //第几条评论/回复
-          comment_content: "文章不错哟",
+          comment_content: "Good!",
         },
       ],
     },
