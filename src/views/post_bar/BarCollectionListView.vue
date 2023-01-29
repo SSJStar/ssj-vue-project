@@ -1,5 +1,5 @@
 <template>
-  <div class="barlist_div">
+  <div class="collectionlist_div">
     <!--    <label>文章列表</label>-->
     <div
       class="v-for-div"
@@ -10,8 +10,16 @@
       <div class="title_type_div">
         <label class="bar_title">{{ bar.title }}</label>
         <label class="bar_type">{{ bar.type }}</label>
+        <div class="collection_div">
+          <div class="area" @click="collectFun($event, index)">
+            <img :src="collectionImg(index)" alt="" />
+          </div>
+        </div>
       </div>
-      <label class="bar_content">{{ bar.body }}</label>
+    </div>
+    <!--  暂无数据  -->
+    <div v-if="barlist.length === 0">
+      <h1>暂无数据</h1>
     </div>
   </div>
 </template>
@@ -31,6 +39,7 @@ const barlist = ref([
       "https://lmg.jj20.com/up/allimg/tp08/45041324391718-lp.jpg",
       "https://img13.51tietu.net/pic/20200120/pg53i3ybyoapg53i3ybyoa.jpg",
     ],
+    is_collection: "1",
   },
   {
     bar_id: "10002",
@@ -44,6 +53,7 @@ const barlist = ref([
       "https://www.67cy.com/d/file/p/20201028/8d735970eae1396acef6e5f0f0848edb.jpg",
       "https://img1.baidu.com/it/u=2148869572,3414617910&fm=253&fmt=auto&app=138&f=JPEG?w=600&h=420",
     ],
+    is_collection: "1",
   },
   {
     bar_id: "10003",
@@ -55,6 +65,7 @@ const barlist = ref([
       "https://lmg.jj20.com/up/allimg/tp08/45041324391718-lp.jpg",
       "https://img13.51tietu.net/pic/20200120/pg53i3ybyoapg53i3ybyoa.jpg",
     ],
+    is_collection: "1",
   },
   {
     bar_id: "10004",
@@ -66,6 +77,7 @@ const barlist = ref([
       "https://lmg.jj20.com/up/allimg/tp08/45041324391718-lp.jpg",
       "https://img13.51tietu.net/pic/20200120/pg53i3ybyoapg53i3ybyoa.jpg",
     ],
+    is_collection: "1",
   },
   {
     bar_id: "10005",
@@ -78,6 +90,7 @@ const barlist = ref([
       "https://nimg.ws.126.net/?url=https://dingyue.ws.126.net/2021/0502/a722d4ecj00qshi0000soc001jk00y1m.jpg&thumbnail=650x2147483647&quality=80&type=jpg",
       "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fss2.meipian.me%2Fusers%2F5896609%2Fdc885fdee5df415d99b61c4a8bdc4559.jpg%3Fmeipian-raw%2Fbucket%2Fivwen%2Fkey%2FdXNlcnMvNTg5NjYwOS9kYzg4NWZkZWU1ZGY0MTVkOTliNjFjNGE4YmRjNDU1OS5qcGc%3D%2Fsign%2F9f61c56de478947f9348895514c94d60.jpg&refer=http%3A%2F%2Fss2.meipian.me&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1676451781&t=41d1a949c4213d848da723ede3482804",
     ],
+    is_collection: "1",
   },
 ]);
 
@@ -94,10 +107,43 @@ function barClick(index) {
   router.push({ name: "barDetailView", params: { jsonString: jsondata } });
   // router.push({ path: "/layoutView/barDetailView", query: { title: pa } });
 }
+
+/** 收藏 */
+let collectionBool = ref(false);
+// let collectionImg = ref(require("@/assets/post_bar/bar_collection_off.png"));
+let collectionImg = (index) => {
+  const item = barlist.value[index];
+  if (item.is_collection === "0") {
+    return require("@/assets/post_bar/bar_collection_off.png");
+  } else {
+    return require("@/assets/post_bar/bar_collection_on.png");
+  }
+};
+
+const collectFun = (event, index) => {
+  console.log("前");
+  console.log(barlist.value);
+  const item = barlist.value[index];
+  item.is_collection = item.is_collection === "0" ? "1" : "0";
+  if (item.is_collection === "1") {
+    collectionImg.value = require("@/assets/post_bar/bar_collection_on.png");
+  } else {
+    // collectionImg.value = require("@/assets/post_bar/bar_collection_off.png");
+    // barlist.value.splice(0)
+    barlist.value = barlist.value.filter(
+      (item) => item !== barlist.value[index]
+    );
+  }
+  // 调用这句话，就可以阻止 "事件穿透"
+  event.stopPropagation();
+  console.log("后");
+  console.log(barlist.value);
+};
 </script>
 
 <style scoped>
-.barlist_div {
+.collectionlist_div {
+  height: 100%;
   background-color: #ebebeb;
   display: flex;
   flex-direction: column;
@@ -105,23 +151,25 @@ function barClick(index) {
 }
 .v-for-div {
   margin: 15px 15px 0 15px;
+  height: 40px;
   background-color: white;
   display: flex;
   flex-direction: column;
   border-radius: 6px;
-  box-shadow: 5px 5px 8px #999999; /* 外阴影 */
+  box-shadow: 3px 3px 8px #999999; /* 外阴影 */
 }
 /* "标题、类型"的父div */
 .title_type_div {
   display: flex;
-  border-bottom: 1px solid #ccc;
+  /*border-bottom: 1px solid #ccc;*/
   float: left;
-  margin-left: 10px;
+  /*margin-left: 10px;*/
+  margin: auto 0 auto 10px;
 }
 
 /* 标题 */
 .bar_title {
-  font-size: 20px;
+  font-size: 16px;
   color: #393939;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -136,9 +184,22 @@ function barClick(index) {
   align-items: center;
 }
 
-/* 内容 */
-.bar_content {
-  margin: 15px 15px 15px 15px;
-  text-align: left;
+/* 收藏 */
+.collection_div {
+  /*background-color: #42b983;*/
+  flex: auto;
+}
+.collection_div .area {
+  width: 30px;
+  height: 100%;
+  float: right;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.collection_div img {
+  width: 25px;
+  height: 25px;
 }
 </style>

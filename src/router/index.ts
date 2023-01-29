@@ -55,6 +55,12 @@ const routes = [
         name: "addNewBarView",
         component: () => import("../views/post_bar/AddNewBarView.vue"),
       },
+      // 我的收藏
+      {
+        path: "collectionListView",
+        name: "collectionListView",
+        component: () => import("../views/post_bar/BarCollectionListView.vue"),
+      },
       {
         //xlsx文件的读取和导出
         path: "xlsxView",
@@ -111,11 +117,6 @@ const routes = [
     path: "/lay",
     name: "lay",
     component: () => import("@/views/other/SSJLayoutTestViews.vue"),
-  },
-  {
-    path: "/wy",
-    name: "wy",
-    component: () => import("@/views/wymusic/WYMusicView.vue"),
   },
   {
     path: "/test",

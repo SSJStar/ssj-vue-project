@@ -107,7 +107,7 @@ const listJson = {
           parent_id: "3",
           iconName: "",
           title: "发布帖子",
-          page: "/layoutView/bodyView",
+          page: "/layoutView/addNewBarView",
           childrens: [],
         },
         {
@@ -123,6 +123,7 @@ const listJson = {
           parent_id: "3",
           iconName: "",
           title: "我的收藏",
+          page: "/layoutView/collectionListView",
           childrens: [],
         },
         {

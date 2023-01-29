@@ -12,26 +12,21 @@
       <label class="body-text">{{ barData.body }}</label>
       <!--   图片区域   -->
       <div v-for="(url, index) in barData.img_urls" :key="index">
-        <img
-          :src="url"
-          alt="图{{index}}"
-          style="width: 80%; max-height: 100%"
-          class="content-div-img"
-        />
+        <img :src="url" alt="" class="content-div-img" />
       </div>
       <!--   互动区域：评论、点赞、收藏   -->
       <div class="interaction-div">
-        <!--   点杂   -->
-        <div class="action-div">
-          <img src="@/assets/post_bar/bar_zan.png" alt="" />
+        <!--   点赞   -->
+        <div class="action-div" @click="zanFun">
+          <img :src="zanImg" alt="" />
         </div>
         <!--   评论   -->
         <div class="action-div">
           <img src="@/assets/post_bar/bar_comment.png" alt="" />
         </div>
         <!--   收藏   -->
-        <div class="action-div">
-          <img src="@/assets/post_bar/bar_collection.png" alt="" />
+        <div class="action-div" @click="collectFun">
+          <img :src="collectionImg" alt="" />
         </div>
       </div>
     </div>
@@ -48,64 +43,6 @@ import router from "@/router";
 import CommentView from "@/views/post_bar/CommentView.vue"; //评论组建
 let barData = ref({});
 
-const commentList = {
-  bar_id: "", //哪个帖子
-  list: [
-    {
-      comment_id: "10235", //评论编号
-      user_id: "100014",
-      nick_name: "张三",
-      replyfrom: "", //回复谁的评论，如果为空表示文章的评论，而并非回复内容
-      comment_num: "1", //第几条评论/回复
-      comment_content: "文章不错哟",
-      list: [
-        {
-          comment_id: "10236", //本条评论编号
-          reply_from: "10235", //回复谁的评论，如果为空表示文章的评论，而并非回复内容
-          user_id: "100016",
-          nick_name: "王五",
-          comment_num: "1", //第几条评论/回复
-          comment_content: "文章不错哟",
-        },
-        {
-          comment_id: "10237", //本条评论编号
-          reply_from: "10236", //回复谁的评论，如果为空表示文章的评论，而并非回复内容
-          user_id: "100014",
-          nick_name: "张三",
-          comment_num: "2", //第几条评论/回复
-          comment_content: "文章不错哟",
-        },
-      ],
-    },
-    {
-      comment_id: "10240", //评论编号
-      user_id: "100021",
-      nick_name: "林奇",
-      replyfrom: "", //回复谁的评论，如果为空表示文章的评论，而并非回复内容
-      comment_num: "2", //第几条评论/回复
-      comment_content: "文章不错，已经收藏了",
-      list: [
-        {
-          comment_id: "10241", //本条评论编号
-          reply_from: "10240", //回复谁的评论，如果为空表示文章的评论，而并非回复内容
-          user_id: "100033",
-          nick_name: "海大富",
-          comment_num: "1", //第几条评论/回复
-          comment_content: "文章不错哟",
-        },
-        {
-          comment_id: "10242", //本条评论编号
-          reply_from: "10240", //回复谁的评论，如果为空表示文章的评论，而并非回复内容
-          user_id: "100053",
-          nick_name: "林菲儿",
-          comment_num: "2", //第几条评论/回复
-          comment_content: "文章不错哟",
-        },
-      ],
-    },
-  ],
-};
-
 const route = useRoute();
 onMounted(() => {
   // 从路由器「params」获取「文章详情」
@@ -116,6 +53,30 @@ onMounted(() => {
 /** 返回 */
 const back = () => {
   router.back();
+};
+
+/** 点赞 */
+let zanBool = ref(false);
+let zanImg = ref(require("@/assets/post_bar/bar_zan_off.png"));
+const zanFun = () => {
+  zanBool.value = !zanBool.value;
+  if (zanBool.value) {
+    zanImg.value = require("@/assets/post_bar/bar_zan_on.png");
+  } else {
+    zanImg.value = require("@/assets/post_bar/bar_zan_off.png");
+  }
+};
+
+/** 收藏 */
+let collectionBool = ref(false);
+let collectionImg = ref(require("@/assets/post_bar/bar_collection_off.png"));
+const collectFun = () => {
+  collectionBool.value = !collectionBool.value;
+  if (collectionBool.value) {
+    collectionImg.value = require("@/assets/post_bar/bar_collection_on.png");
+  } else {
+    collectionImg.value = require("@/assets/post_bar/bar_collection_off.png");
+  }
 };
 </script>
 
@@ -171,12 +132,19 @@ const back = () => {
 .body-text {
   margin: 10px;
 }
+/* 正文 - 图片区域 */
+.content-div-img {
+  width: calc(100% - 10px * 2);
+  max-height: 100%;
+  margin-top: 10px;
+}
 
 /* 互动区域 */
 .interaction-div {
   height: 40px;
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
 }
 
 .interaction-div .action-div {
