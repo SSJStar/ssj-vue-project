@@ -137,7 +137,7 @@ const back = () => {
 
 /** 帖子内容 */
 .content-div {
-  margin: 15px 15px 10px 15px;
+  margin: 15px 25px 10px 25px;
   padding-bottom: 10px;
   background-color: white;
   display: flex;
@@ -149,8 +149,8 @@ const back = () => {
 /* content-div统一设置label */
 .content-div label {
   text-align: left;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 /* 标题 */
