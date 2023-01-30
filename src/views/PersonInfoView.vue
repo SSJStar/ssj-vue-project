@@ -1,5 +1,25 @@
 <template>
-  <div>
+  <div class="person_info_div">
+    <el-image
+      src="https://randomuser.me/api/portraits/men/139.jpg"
+      alt=""
+      class="el_image"
+    >
+      <!--  占位图   -->
+      <template #placeholder>
+        <div class="image-slot">Loading。。。</div>
+      </template>
+      <!--  当加载出错   -->
+      <template #error>
+        <div class="image-slot">
+          <img
+            class="el_image"
+            src="@/assets/public/default_head_img.png"
+            alt=""
+          />
+        </div>
+      </template>
+    </el-image>
     <v-form-render
       :form-json="formJson"
       :form-data="formData"
@@ -7,7 +27,7 @@
       ref="vFormRef"
     >
     </v-form-render>
-    <el-button type="primary" @click="submitForm">Submit</el-button>
+    <el-button type="primary" @click="submitForm">提 交</el-button>
   </div>
 </template>
 
@@ -37,11 +57,11 @@ const formJson = reactive({
               options: {
                 name: "input109875",
                 label: "您的昵称",
-                labelAlign: "",
+                labelAlign: "label-center-align",
                 type: "text",
                 defaultValue: "",
                 placeholder: "",
-                columnWidth: "200px",
+                columnWidth: "100px",
                 size: "",
                 labelWidth: null,
                 labelHidden: false,
@@ -81,7 +101,7 @@ const formJson = reactive({
             name: "gridCol44113",
             hidden: false,
             span: 12,
-            offset: 0,
+            offset: 6,
             push: 0,
             pull: 0,
             responsive: false,
@@ -98,7 +118,7 @@ const formJson = reactive({
         hidden: false,
         gutter: 12,
         colHeight: null,
-        customClass: "",
+        customClass: [],
       },
       id: "grid80590",
     },
@@ -121,7 +141,7 @@ const formJson = reactive({
               options: {
                 name: "date68160",
                 label: "出生日期",
-                labelAlign: "label-left-align",
+                labelAlign: "label-center-align",
                 type: "date",
                 defaultValue: null,
                 placeholder: "",
@@ -159,7 +179,7 @@ const formJson = reactive({
             name: "gridCol33989",
             hidden: false,
             span: 12,
-            offset: 0,
+            offset: 6,
             push: 0,
             pull: 0,
             responsive: false,
@@ -199,7 +219,7 @@ const formJson = reactive({
               options: {
                 name: "radio69697",
                 label: "性别",
-                labelAlign: "",
+                labelAlign: "label-right-align",
                 defaultValue: 3,
                 columnWidth: "200px",
                 size: "",
@@ -211,8 +231,14 @@ const formJson = reactive({
                 disabled: false,
                 hidden: false,
                 optionItems: [
-                  { label: "男", value: 1 },
-                  { label: "女", value: 2 },
+                  {
+                    label: "男",
+                    value: 1,
+                  },
+                  {
+                    label: "女",
+                    value: 2,
+                  },
                 ],
                 required: false,
                 requiredHint: "",
@@ -234,14 +260,14 @@ const formJson = reactive({
             name: "gridCol19247",
             hidden: false,
             span: 12,
-            offset: 0,
+            offset: 6,
             push: 0,
             pull: 0,
             responsive: false,
             md: 12,
             sm: 12,
             xs: 12,
-            customClass: "",
+            customClass: [],
           },
           id: "grid-col-19247",
         },
@@ -274,7 +300,7 @@ const formJson = reactive({
               options: {
                 name: "textarea52928",
                 label: "爱好",
-                labelAlign: "",
+                labelAlign: "label-center-align",
                 rows: 3,
                 defaultValue: "",
                 placeholder: "",
@@ -311,7 +337,7 @@ const formJson = reactive({
             name: "gridCol57275",
             hidden: false,
             span: 12,
-            offset: 0,
+            offset: 6,
             push: 0,
             pull: 0,
             responsive: false,
@@ -340,7 +366,7 @@ const formJson = reactive({
     labelWidth: 80,
     labelPosition: "left",
     size: "",
-    labelAlign: "label-left-align",
+    labelAlign: "label-center-align",
     cssCode: "",
     customClass: [],
     functions: "",
@@ -369,3 +395,20 @@ const submitForm = () => {
     });
 };
 </script>
+
+<style>
+.person_info_div {
+  background-color: #ebebeb;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding-top: 40px;
+}
+
+.person_info_div .el_image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+}
+</style>

@@ -8,7 +8,8 @@ const routes = [
     // component: () => import("../views/MenuBodyView.vue"),
     // component: () => import("@/views/wymusic/WYMusicView.vue"),
     // component: () => import("@/views/xiaomi/XiaoMiView.vue"),
-    component: () => import("../views/post_bar/AddNewBarView.vue"),
+    // component: () => import("../views/post_bar/AddNewBarView.vue"),
+    component: () => import("../views/LayoutView.vue"),
   },
   //注册
   {
