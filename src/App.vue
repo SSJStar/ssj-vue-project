@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <router-view />
+    <el-config-provider :locale="zhCn">
+      <router-view />
+    </el-config-provider>
   </div>
 </template>
 
 <script>
-// import HeadNav from "@/components/HeadNav";
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Home",
@@ -22,6 +22,7 @@ import sessionStorageManager from "@/statics/sessionStorageManager.js";
 // import Login from "@/views/login/LoginView";
 // import SSJDialog from "@/components/SSJDialog"; //弹窗
 import router from "@/router";
+import zhCn from "element-plus/es/locale/lang/zh-cn";
 
 let dialogRef = ref(null);
 

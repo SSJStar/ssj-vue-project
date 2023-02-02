@@ -8,7 +8,7 @@
     <div class="userInfoDiv" id="head-div" ref="userInfoDivRef">
       <!--  头像  -->
       <img
-        src="@/assets/nav/people.png"
+        src="https://randomuser.me/api/portraits/men/33.jpg"
         alt=""
         :onmouseenter="mouthIntoHead"
         :onmouseleave="mouthLeaveHead"
@@ -139,10 +139,12 @@ function mouthLeaveBox() {
   boxShow.value = false;
 }
 
+const inj_person = inject("showUserInfoViewKEY");
 function userInfoClick() {
   console.log("点击了 个人信息");
   boxShow.value = false;
-  // router.push("/testSSJ");
+  // 调用LayoutView里的「showUserInfoView」方法
+  inj_person();
 }
 
 const inj = inject("showLoginVueKEY");

@@ -11,12 +11,17 @@ import ElementPlus from "element-plus"; //引入element-plus
 import "element-plus/dist/index.css"; //引入element-plus样式
 // import globalObj from "@/statics/global.js";
 // import zhCn from "element-plus/es/locale"; //引入element-plus中文样式(针对日历)
+import zhCn from "element-plus/es/locale/lang/zh-cn";
 
 const app = createApp(App); //创建应用实例
 
 app.use(VForm3); //全局注册VForm3(同时注册了v-form-designe、v-form-render等组件)
 app.use(ElementPlus); //全局注册ElementPlus
 
+// 国际化配置
+app.use(ElementPlus, {
+  locale: zhCn,
+});
 // app.use(ElementPlus, { locale: zhCn });
 // app.use(SubDialog)
 

@@ -1,7 +1,7 @@
 <template>
   <div class="person_info_div">
     <el-image
-      src="https://randomuser.me/api/portraits/men/139.jpg"
+      src="https://randomuser.me/api/portraits/men/33.jpg"
       alt=""
       class="el_image"
     >
@@ -20,6 +20,18 @@
         </div>
       </template>
     </el-image>
+    <!--  昵称  -->
+    <el-form-item label="您的昵称" style="margin: 0 25%">
+      <el-input
+        placeholder="暂无昵称"
+        v-model="personData.nameValue"
+      ></el-input>
+    </el-form-item>
+    <!--  日期  -->
+    <el-form-item label="出生日期">
+      <el-date-picker v-model="personData.birthdayValue"></el-date-picker>
+    </el-form-item>
+
     <v-form-render
       :form-json="formJson"
       :form-data="formData"
@@ -32,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 
 const formJson = reactive({
@@ -381,6 +393,18 @@ const formJson = reactive({
 const formData = reactive({});
 const optionData = reactive({});
 const vFormRef = ref(null);
+
+// 定义一个对象，用来存放输入的账号、密码、验证码
+let personData = ref({
+  nameValue: "", //昵称
+  birthdayValue: "", //出生日期
+  sexValue: "", //性别
+  hobbyValue: "", //爱好
+});
+
+onMounted(() => {
+  formData["input109875"] = "jack";
+});
 
 const submitForm = () => {
   vFormRef.value

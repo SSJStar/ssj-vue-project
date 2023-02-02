@@ -62,6 +62,13 @@ const routes = [
         name: "collectionListView",
         component: () => import("../views/post_bar/BarCollectionListView.vue"),
       },
+      //个人中心
+      {
+        path: "personInfo",
+        name: "personInfo",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../views/PersonInfoView.vue"),
+      },
       {
         //xlsx文件的读取和导出
         path: "xlsxView",
@@ -96,12 +103,6 @@ const routes = [
         component: () => import("@/views/xiaomi/XiaoMiView.vue"),
       },
     ],
-  },
-  {
-    path: "/personInfo",
-    name: "personInfo",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/PersonInfoView.vue"),
   },
   {
     path: "/testSSJ",

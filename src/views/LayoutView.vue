@@ -57,8 +57,11 @@ let headNavRef = ref(null);
 //用provide声明这个方法，子组件可以通过inject来访问，哪怕这两个组件直接隔了n层，有点像iOS里的「通知」
 provide("showSSJDialogKEY", showSSJDialog);
 
-//用provide声明这个方法，子组件可以通过inject来访问，哪怕这两个组件直接隔了n层，有点像iOS里的「通知」
-provide("showLoginVueKEY", showLoginVuew);
+//声明"showLoginViewKEY"，退出登陆
+provide("showLoginVueKEY", showLoginView);
+
+//声明"showUserInfoViewKEY"，跳转个人信息
+provide("showUserInfoViewKEY", showUserInfoView);
 
 //菜单-展开宽度
 let foldOnW = staticVars.LEFTMENU_FOLDONW;
@@ -222,14 +225,14 @@ function showSSJDialog(title, subTitle) {
 }
 
 /**
- *  声明provide方法
+ *  退出登录方法
  *
  * 作者: 小青龙
  * 时间：2022/10/26 11:08:30
  * @param showLogin {boolean}  是否展示登录页面，true：展示
  * @return {void}
  */
-function showLoginVuew(showLogin) {
+function showLoginView(showLogin) {
   console.log("收到HeadNav通知，即将退出登录" + showLogin);
   sessionStorageManager.signOut(); //清理缓存数据
   // router.go(-1); //后退、并刷新
@@ -242,11 +245,27 @@ function showLoginVuew(showLogin) {
   // router.go(-(router.getRoutes().length - 1));
   // router.matcher = createm
   // router.push({ path: "/loginView", replace: true });
+
+  sessionStorageManager.setLoginState("1"); //标记为未登录
   history.go(-(history.length - 1)); //清空历史记录
   setTimeout(() => {
     // 这里要加延迟，否则replace无效
     router.replace("/loginView"); //跳转登录页
   }, 100);
+}
+/**
+ * 跳转到 -> 个人信息界面
+ *  作者：小青龙
+ *  时间：2023/02/02 16:32:01
+ *  说明：
+ */
+function showUserInfoView(showLogin) {
+  console.log("showUserInfoView～");
+  if (sessionStorageManager.getLoginState() === false) {
+    console.log("未登录～");
+  }
+  // console.log("收到通知，跳转到个人信息界面" + showLogin);
+  router.push("/layoutView/personInfo");
 }
 
 /**
