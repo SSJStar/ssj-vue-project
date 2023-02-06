@@ -244,13 +244,13 @@ function showLoginView(showLogin) {
   // console.log(`length is ` + router.getRoutes().length);
   // router.go(-(router.getRoutes().length - 1));
   // router.matcher = createm
-  // router.push({ path: "/loginView", replace: true });
+  // router.push({ path: "/login", replace: true });
 
   sessionStorageManager.setLoginState("1"); //标记为未登录
   history.go(-(history.length - 1)); //清空历史记录
   setTimeout(() => {
     // 这里要加延迟，否则replace无效
-    router.replace("/loginView"); //跳转登录页
+    router.replace("/login"); //跳转登录页
   }, 100);
 }
 /**

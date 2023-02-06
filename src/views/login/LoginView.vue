@@ -127,6 +127,11 @@ function loginActionFunc() {
   //   console.log(`读取~~~ ${sessionStorageManager.getLoginState()}`);
   // }, 1000);
   // return;
+
+  // 缓存数据
+  sessionStorageManager.setLoginState(true);
+  sessionStorageManager.setUserName(loginInput.nameValue);
+  sessionStorageManager.setNickName("汤姆森.金");
   let n = "汤姆森.金";
   router.push(`/layoutView?title=${n}`); //跳转布局页
   return;

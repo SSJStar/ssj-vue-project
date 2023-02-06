@@ -53,7 +53,7 @@ onMounted(() => {
   // eslint-disable-next-line no-unreachable
   if (sessionStorageManager.getLoginState() === false) {
     console.log("请先登录---");
-    router.push("/loginView");
+    router.push("/login");
     // router.push("/testSSJ");
   }
 });

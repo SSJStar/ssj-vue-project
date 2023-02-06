@@ -16,6 +16,11 @@ const sessionStorageManager = {
     sessionStorage.setItem("userName", value);
   },
 
+  // 修改昵称
+  setNickName(value) {
+    sessionStorage.setItem("nickName", value);
+  },
+
   // 修改token
   setToken(value) {
     this.token = value;
@@ -35,17 +40,42 @@ const sessionStorageManager = {
     return sessionStorage.getItem("userName");
   },
 
+  // 获取用户名
+  getNickName() {
+    return sessionStorage.getItem("nickName");
+  },
+
   // 获取token
   getToken() {
     return sessionStorage.getItem("token");
   },
+
+  getUser() {
+    let user = UserInfo("", "", "", "");
+    user.loginState = this.getLoginState();
+    user.userName = this.getUserName();
+    user.nickName = this.getNickName();
+    user.token = this.getToken();
+    return user;
+  },
+
   /** 清理方法 */
   // 退出登录，初始化数据
   signOut() {
     this.setLoginState(false);
     this.setUserName("");
     this.setToken("");
+    this.setNickName("");
   },
 };
+
+class UserInfo {
+  constructor(loginState, userName, nickName, token) {
+    this.loginState = loginState;
+    this.userName = userName;
+    this.nickName = nickName;
+    this.token = token;
+  }
+}
 
 export default sessionStorageManager;

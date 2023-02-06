@@ -19,8 +19,8 @@ const routes = [
   },
   //登录
   {
-    path: "/loginView",
-    name: "loginView",
+    path: "/login",
+    name: "login",
     component: () => import("../views/login/LoginView.vue"),
   },
   //主页，又名"布局组件"，包含组件：HeadNav、LeftMenu、router-view
