@@ -26,7 +26,7 @@
       <el-input
         placeholder="数据出错"
         v-model="personData.username"
-        disabled="false"
+        disabled
       ></el-input>
     </el-form-item>
 
@@ -45,17 +45,18 @@
 
     <!--  年龄  -->
     <el-form-item label="您的年龄">
-      <el-input placeholder="暂无数据" v-model="personData.age"></el-input>
+      <el-input
+        placeholder="暂无数据"
+        v-model="personData.ageValue"
+        disabled
+      ></el-input>
     </el-form-item>
-    <!--    <v-form-render-->
-    <!--      :form-json="formJson"-->
-    <!--      :form-data="formData"-->
-    <!--      :option-data="optionData"-->
-    <!--      ref="vFormRef"-->
-    <!--    >-->
-    <!--    </v-form-render>-->
-    <el-button type="primary" class="submit-button" @click="submitForm"
-      >提 交</el-button
+    <el-button
+      type="primary"
+      class="submit-button"
+      :loading="button_loadding"
+      @click="submitForm"
+      >{{ button_text }}</el-button
     >
   </div>
 </template>
@@ -64,354 +65,14 @@
 import { ref, reactive, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import sessionStorageManager from "@/statics/sessionStorageManager";
+import { getUserInfo } from "@/api/api";
+import router from "@/router";
 
-// const formJson = reactive({
-//   widgetList: [
-//     {
-//       key: 83617,
-//       type: "grid",
-//       category: "container",
-//       icon: "grid",
-//       cols: [
-//         {
-//           type: "grid-col",
-//           category: "container",
-//           icon: "grid-col",
-//           internal: true,
-//           widgetList: [
-//             {
-//               key: 42615,
-//               type: "input",
-//               icon: "text-field",
-//               formItemFlag: true,
-//               options: {
-//                 name: "input109875",
-//                 label: "您的昵称",
-//                 labelAlign: "label-center-align",
-//                 type: "text",
-//                 defaultValue: "",
-//                 placeholder: "",
-//                 columnWidth: "100px",
-//                 size: "",
-//                 labelWidth: null,
-//                 labelHidden: false,
-//                 readonly: false,
-//                 disabled: false,
-//                 hidden: false,
-//                 clearable: true,
-//                 showPassword: false,
-//                 required: false,
-//                 requiredHint: "",
-//                 validation: "",
-//                 validationHint: "",
-//                 customClass: [],
-//                 labelIconClass: null,
-//                 labelIconPosition: "rear",
-//                 labelTooltip: null,
-//                 minLength: null,
-//                 maxLength: null,
-//                 showWordLimit: false,
-//                 prefixIcon: "",
-//                 suffixIcon: "",
-//                 appendButton: false,
-//                 appendButtonDisabled: false,
-//                 buttonIcon: "custom-search",
-//                 onCreated: "",
-//                 onMounted: "",
-//                 onInput: "",
-//                 onChange: "",
-//                 onFocus: "",
-//                 onBlur: "",
-//                 onValidate: "",
-//               },
-//               id: "input109875",
-//             },
-//           ],
-//           options: {
-//             name: "gridCol44113",
-//             hidden: false,
-//             span: 12,
-//             offset: 6,
-//             push: 0,
-//             pull: 0,
-//             responsive: false,
-//             md: 12,
-//             sm: 12,
-//             xs: 12,
-//             customClass: "",
-//           },
-//           id: "grid-col-44113",
-//         },
-//       ],
-//       options: {
-//         name: "grid80590",
-//         hidden: false,
-//         gutter: 12,
-//         colHeight: null,
-//         customClass: [],
-//       },
-//       id: "grid80590",
-//     },
-//     {
-//       type: "grid",
-//       category: "container",
-//       icon: "grid",
-//       cols: [
-//         {
-//           type: "grid-col",
-//           category: "container",
-//           icon: "grid-col",
-//           internal: true,
-//           widgetList: [
-//             {
-//               key: 56625,
-//               type: "date",
-//               icon: "date-field",
-//               formItemFlag: true,
-//               options: {
-//                 name: "date68160",
-//                 label: "出生日期",
-//                 labelAlign: "label-center-align",
-//                 type: "date",
-//                 defaultValue: null,
-//                 placeholder: "",
-//                 columnWidth: "200px",
-//                 size: "",
-//                 autoFullWidth: true,
-//                 labelWidth: null,
-//                 labelHidden: false,
-//                 readonly: false,
-//                 disabled: false,
-//                 hidden: false,
-//                 clearable: true,
-//                 editable: false,
-//                 format: "YYYY-MM-DD",
-//                 valueFormat: "YYYY-MM-DD",
-//                 required: false,
-//                 requiredHint: "",
-//                 validation: "",
-//                 validationHint: "",
-//                 customClass: [],
-//                 labelIconClass: null,
-//                 labelIconPosition: "rear",
-//                 labelTooltip: null,
-//                 onCreated: "",
-//                 onMounted: "",
-//                 onChange: "",
-//                 onFocus: "",
-//                 onBlur: "",
-//                 onValidate: "",
-//               },
-//               id: "date68160",
-//             },
-//           ],
-//           options: {
-//             name: "gridCol33989",
-//             hidden: false,
-//             span: 12,
-//             offset: 6,
-//             push: 0,
-//             pull: 0,
-//             responsive: false,
-//             md: 12,
-//             sm: 12,
-//             xs: 12,
-//             customClass: "",
-//           },
-//           id: "grid-col-33989",
-//         },
-//       ],
-//       options: {
-//         name: "grid109473",
-//         hidden: false,
-//         gutter: 12,
-//         colHeight: null,
-//         customClass: "",
-//       },
-//       id: "grid109473",
-//     },
-//     {
-//       type: "grid",
-//       category: "container",
-//       icon: "grid",
-//       cols: [
-//         {
-//           type: "grid-col",
-//           category: "container",
-//           icon: "grid-col",
-//           internal: true,
-//           widgetList: [
-//             {
-//               key: 109095,
-//               type: "radio",
-//               icon: "radio-field",
-//               formItemFlag: true,
-//               options: {
-//                 name: "radio69697",
-//                 label: "性别",
-//                 labelAlign: "label-right-align",
-//                 defaultValue: 3,
-//                 columnWidth: "200px",
-//                 size: "",
-//                 displayStyle: "inline",
-//                 buttonStyle: false,
-//                 border: false,
-//                 labelWidth: null,
-//                 labelHidden: false,
-//                 disabled: false,
-//                 hidden: false,
-//                 optionItems: [
-//                   {
-//                     label: "男",
-//                     value: 1,
-//                   },
-//                   {
-//                     label: "女",
-//                     value: 2,
-//                   },
-//                 ],
-//                 required: false,
-//                 requiredHint: "",
-//                 validation: "",
-//                 validationHint: "",
-//                 customClass: [],
-//                 labelIconClass: null,
-//                 labelIconPosition: "rear",
-//                 labelTooltip: null,
-//                 onCreated: "",
-//                 onMounted: "",
-//                 onChange: "",
-//                 onValidate: "",
-//               },
-//               id: "radio69697",
-//             },
-//           ],
-//           options: {
-//             name: "gridCol19247",
-//             hidden: false,
-//             span: 12,
-//             offset: 6,
-//             push: 0,
-//             pull: 0,
-//             responsive: false,
-//             md: 12,
-//             sm: 12,
-//             xs: 12,
-//             customClass: [],
-//           },
-//           id: "grid-col-19247",
-//         },
-//       ],
-//       options: {
-//         name: "grid34155",
-//         hidden: false,
-//         gutter: 12,
-//         colHeight: null,
-//         customClass: [],
-//       },
-//       id: "grid34155",
-//     },
-//     {
-//       type: "grid",
-//       category: "container",
-//       icon: "grid",
-//       cols: [
-//         {
-//           type: "grid-col",
-//           category: "container",
-//           icon: "grid-col",
-//           internal: true,
-//           widgetList: [
-//             {
-//               key: 38131,
-//               type: "textarea",
-//               icon: "textarea-field",
-//               formItemFlag: true,
-//               options: {
-//                 name: "textarea52928",
-//                 label: "爱好",
-//                 labelAlign: "label-center-align",
-//                 rows: 3,
-//                 defaultValue: "",
-//                 placeholder: "",
-//                 columnWidth: "200px",
-//                 size: "",
-//                 labelWidth: null,
-//                 labelHidden: false,
-//                 readonly: false,
-//                 disabled: false,
-//                 hidden: false,
-//                 required: false,
-//                 requiredHint: "",
-//                 validation: "",
-//                 validationHint: "",
-//                 customClass: [],
-//                 labelIconClass: null,
-//                 labelIconPosition: "rear",
-//                 labelTooltip: null,
-//                 minLength: null,
-//                 maxLength: null,
-//                 showWordLimit: false,
-//                 onCreated: "",
-//                 onMounted: "",
-//                 onInput: "",
-//                 onChange: "",
-//                 onFocus: "",
-//                 onBlur: "",
-//                 onValidate: "",
-//               },
-//               id: "textarea52928",
-//             },
-//           ],
-//           options: {
-//             name: "gridCol57275",
-//             hidden: false,
-//             span: 12,
-//             offset: 6,
-//             push: 0,
-//             pull: 0,
-//             responsive: false,
-//             md: 12,
-//             sm: 12,
-//             xs: 12,
-//             customClass: "",
-//           },
-//           id: "grid-col-57275",
-//         },
-//       ],
-//       options: {
-//         name: "grid105264",
-//         hidden: false,
-//         gutter: 12,
-//         colHeight: null,
-//         customClass: "",
-//       },
-//       id: "grid105264",
-//     },
-//   ],
-//   formConfig: {
-//     modelName: "formData",
-//     refName: "vForm",
-//     rulesName: "rules",
-//     labelWidth: 80,
-//     labelPosition: "left",
-//     size: "",
-//     labelAlign: "label-center-align",
-//     cssCode: "",
-//     customClass: [],
-//     functions: "",
-//     layoutType: "PC",
-//     jsonVersion: 3,
-//     onFormCreated: "",
-//     onFormMounted: "",
-//     onFormDataChange: "",
-//     onFormValidate: "",
-//   },
-// });
-const formData = reactive({});
+// const formData = reactive({});
 const optionData = reactive({});
 const vFormRef = ref(null);
-
+const button_loadding = ref(false); //是否开启菊花
+const button_text = ref("提 交"); //按钮提示文字
 // 定义一个对象，用来存放输入的账号、密码、验证码
 let personData = ref({
   username: "13396551788", //账号
@@ -423,20 +84,53 @@ let personData = ref({
 });
 
 onMounted(() => {
-  formData["input109875"] = "jack";
+  // formData["input109875"] = "jack";
+  // //开始请求
+  // getUserInfo({
+  //   username: sessionStorageManager.getUserName(),
+  // })
+  //   .then((res) => {
+  //     console.log("请求结束了\\n");
+  //     console.log(res);
+  //   })
+  //   .catch((err) => {
+  //     if (err.message.includes("code 500")) {
+  //       alert("500错误，请联系管理员");
+  //     } else {
+  //       alert("其它错误：" + err.message);
+  //     }
+  //   });
+
+  // 延迟1秒，模拟请求
+  setTimeout(() => {
+    const bir = "1998-02-14";
+    // 年龄 = 当前年份 - 出生年份
+    const age = new Date().getFullYear() - Number(bir.substring(0, 4));
+    personData.value = {
+      username: "13396551788", //账号
+      nameValue: sessionStorageManager.getNickName(), //昵称
+      birthdayValue: "1998-02-14", //出生日期
+      sexValue: "1", //性别
+      hobbyValue: "弹钢琴、打羽毛球、瑜伽", //爱好
+      ageValue: age, //年龄
+    };
+  }, 1000);
 });
 
+/**
+ * 提交
+ *  作者：小青龙
+ *  时间：2023/02/07 15:01:39
+ *  说明：
+ */
 const submitForm = () => {
-  vFormRef.value
-    .getFormData()
-    .then((formData) => {
-      // Form Validation OK
-      alert(JSON.stringify(formData));
-    })
-    .catch((error) => {
-      // Form Validation failed
-      ElMessage.error(error);
-    });
+  button_loadding.value = true;
+  button_text.value = "提交中...";
+  // 模拟提交请求，3秒后结束
+  setTimeout(() => {
+    button_loadding.value = false;
+    button_text.value = "提 交";
+  }, 3000);
 };
 </script>
 

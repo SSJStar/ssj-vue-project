@@ -39,3 +39,8 @@ export function getUpdatePwdCode(params) {
 export function doUpdatePwd(params) {
   return http.post("/updatePwd", params);
 }
+
+// 获取用户信息
+export function getUserInfo(params) {
+  return http.get("/userInfo", params);
+}

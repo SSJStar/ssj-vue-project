@@ -58,8 +58,12 @@
 
       <!--登录按钮-->
       <div class="login-button-div">
-        <el-button class="login-button" type="primary" @click="loginActionFunc"
-          >登 录
+        <el-button
+          class="login-button"
+          type="primary"
+          :loading="button_loadding"
+          @click="loginActionFunc"
+          >{{ button_text }}
         </el-button>
       </div>
 
@@ -89,6 +93,9 @@ let loginInput = {
   pwdValue: "",
   codeInputValue: "",
 };
+
+const button_loadding = ref(false); //是否开启菊花
+const button_text = ref("登 录"); //按钮提示文字
 
 // 图形验证码
 let identifyCodes = "1234567890abcdefghijklmnopqrstuvwxyz"; //随机数-数据源
@@ -128,76 +135,86 @@ function loginActionFunc() {
   // }, 1000);
   // return;
 
-  // 缓存数据
-  sessionStorageManager.setLoginState(true);
-  sessionStorageManager.setUserName(loginInput.nameValue);
-  sessionStorageManager.setNickName("汤姆森.金");
-  let n = "汤姆森.金";
-  router.push(`/layoutView?title=${n}`); //跳转布局页
-  return;
+  button_loadding.value = true;
+  button_text.value = "登录中...";
+  // 模拟提交请求，3秒后结束
+  setTimeout(() => {
+    button_loadding.value = false;
+    button_text.value = "登 录";
 
-  // console.log("输入的验证码:" + loginInput.codeInputValue);
+    // 缓存数据
+    sessionStorageManager.setLoginState(true);
+    sessionStorageManager.setUserName(loginInput.nameValue);
+    sessionStorageManager.setNickName("汤姆森.金");
+    let n = "汤姆森.金";
+    router.push(`/layoutView?title=${n}`); //跳转布局页
+    return;
 
-  // 非空校验
-  // eslint-disable-next-line no-unreachable
-  const emptyValidateRes =
-    emptyValidate(loginInput.nameValue.toString(), "用户名不能为空") &&
-    emptyValidate(loginInput.pwdValue.toString(), "密码不能为空");
-  if (emptyValidateRes) {
-    // 验证码校验
-    if (loginInput.codeInputValue === identifyCode.value) {
-      //开始请求
-      loginWithUNameAndPwd({
-        username: loginInput.nameValue,
-        password: loginInput.pwdValue,
-      })
-        .then((res) => {
-          console.log("请求结束了\\n");
-          console.log(res);
-          if (res["code"] && res["code"] === "0") {
-            // 登录成功
-            alert("登录成功，即将跳转首页");
-            // json字符串 -> map
-            let userJson = JSON.parse(res["body"]);
-            // 取出用户名
-            let nickName = userJson["nickName"]; //"汤姆森.金";
-            console.log("打印nickName~~~");
-            console.log(userJson["nickName"]);
-            console.log("打印userId~~~");
-            console.log(userJson["userId"]);
-            if (nickName.length == 0) {
-              nickName = "未设置昵称";
-            }
-            // 缓存数据
-            sessionStorageManager.setLoginState(true);
-            sessionStorageManager.setUserName(loginInput.nameValue);
-            sessionStorageManager.setToken(userJson["accessToken"].toString());
-            router.replace(`/layoutView?title=${nickName}`); //跳转布局页，使用replace之后，点击返回按钮不会返回登录页
-          } else if (
-            res["code"] &&
-            (res["code"] === "-1" || res["code"] === -1)
-          ) {
-            // 登录失败
-            alert("登录失败：" + res["desc"]);
-          }
+    // console.log("输入的验证码:" + loginInput.codeInputValue);
+
+    // 非空校验
+    // eslint-disable-next-line no-unreachable
+    const emptyValidateRes =
+      emptyValidate(loginInput.nameValue.toString(), "用户名不能为空") &&
+      emptyValidate(loginInput.pwdValue.toString(), "密码不能为空");
+    if (emptyValidateRes) {
+      // 验证码校验
+      if (loginInput.codeInputValue === identifyCode.value) {
+        //开始请求
+        loginWithUNameAndPwd({
+          username: loginInput.nameValue,
+          password: loginInput.pwdValue,
         })
-        .catch((err) => {
-          if (err.message.includes("code 500")) {
-            alert("500错误，请联系管理员");
-          } else {
-            alert("其它错误：" + err.message);
-          }
-        });
-      // eslint-disable-next-line no-unreachable
-    } else {
-      alert(
-        "您输入的验证码不对：" +
-          loginInput.codeInputValue +
-          "\t 应该是:" +
-          identifyCode.value
-      );
+          .then((res) => {
+            console.log("请求结束了\\n");
+            console.log(res);
+            if (res["code"] && res["code"] === "0") {
+              // 登录成功
+              alert("登录成功，即将跳转首页");
+              // json字符串 -> map
+              let userJson = JSON.parse(res["body"]);
+              // 取出用户名
+              let nickName = userJson["nickName"]; //"汤姆森.金";
+              console.log("打印nickName~~~");
+              console.log(userJson["nickName"]);
+              console.log("打印userId~~~");
+              console.log(userJson["userId"]);
+              if (nickName.length == 0) {
+                nickName = "未设置昵称";
+              }
+              // 缓存数据
+              sessionStorageManager.setLoginState(true);
+              sessionStorageManager.setUserName(loginInput.nameValue);
+              sessionStorageManager.setToken(
+                userJson["accessToken"].toString()
+              );
+              router.replace(`/layoutView?title=${nickName}`); //跳转布局页，使用replace之后，点击返回按钮不会返回登录页
+            } else if (
+              res["code"] &&
+              (res["code"] === "-1" || res["code"] === -1)
+            ) {
+              // 登录失败
+              alert("登录失败：" + res["desc"]);
+            }
+          })
+          .catch((err) => {
+            if (err.message.includes("code 500")) {
+              alert("500错误，请联系管理员");
+            } else {
+              alert("其它错误：" + err.message);
+            }
+          });
+        // eslint-disable-next-line no-unreachable
+      } else {
+        alert(
+          "您输入的验证码不对：" +
+            loginInput.codeInputValue +
+            "\t 应该是:" +
+            identifyCode.value
+        );
+      }
     }
-  }
+  }, 3000);
 }
 
 /**
