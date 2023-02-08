@@ -30,7 +30,13 @@ const routes = [
     children: [
       {
         path: "",
-        component: () => import("../views/FirstView.vue"),
+        component: () => import("../views/IntroduceProjectView.vue"),
+      },
+      // 项目介绍
+      {
+        path: "introduceProjectView",
+        name: "introduceProjectView",
+        component: () => import("../views/IntroduceProjectView.vue"),
       },
       // 子路由
       {

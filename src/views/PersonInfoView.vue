@@ -38,19 +38,49 @@
       ></el-input>
     </el-form-item>
 
+    <!--  性别  -->
+    <el-form-item label="您的性别" class="el-form-item">
+      <el-input
+        placeholder="数据出错"
+        v-model="personData.sexValue"
+        disabled
+      ></el-input>
+    </el-form-item>
+
     <!--  日期  -->
     <el-form-item label="出生日期" class="el-form-item">
       <el-date-picker v-model="personData.birthdayValue"></el-date-picker>
     </el-form-item>
 
     <!--  年龄  -->
-    <el-form-item label="您的年龄">
+    <el-form-item label="您的年龄" class="el-form-item">
       <el-input
         placeholder="暂无数据"
         v-model="personData.ageValue"
         disabled
       ></el-input>
     </el-form-item>
+
+    <!--  爱好  -->
+    <el-form-item label="您的爱好" class="el-form-item">
+      <el-input
+        type="textarea"
+        placeholder="暂无数据"
+        v-model="personData.hobbyValue"
+      ></el-input>
+    </el-form-item>
+
+    <!--  自我介绍  -->
+    <el-form-item label="自我介绍" class="el-form-item">
+      <el-input
+        type="textarea"
+        placeholder="暂无数据"
+        v-model="personData.introductionMyselfValue"
+        autosize
+      ></el-input>
+    </el-form-item>
+
+    <!--  提交按钮  -->
     <el-button
       type="primary"
       class="submit-button"
@@ -81,6 +111,7 @@ let personData = ref({
   sexValue: "", //性别
   hobbyValue: "", //爱好
   ageValue: "", //年龄
+  introductionMyselfValue: "", //自我介绍
 });
 
 onMounted(() => {
@@ -104,15 +135,27 @@ onMounted(() => {
   // 延迟1秒，模拟请求
   setTimeout(() => {
     const bir = "1998-02-14";
+    const sexvalue = "1";
     // 年龄 = 当前年份 - 出生年份
     const age = new Date().getFullYear() - Number(bir.substring(0, 4));
+    const sex = exchangeSex(sexvalue);
     personData.value = {
       username: "13396551788", //账号
       nameValue: sessionStorageManager.getNickName(), //昵称
       birthdayValue: "1998-02-14", //出生日期
-      sexValue: "1", //性别
+      sexValue: sex, //性别
       hobbyValue: "弹钢琴、打羽毛球、瑜伽", //爱好
       ageValue: age, //年龄
+      introductionMyselfValue:
+        "我叫汤姆森.金，今年十岁了。是一个内向而又聪明的男孩。\n" +
+        "\n" +
+        "我的爱好有：运动、画画、看书、做游戏、科学课和语文课。\n" +
+        "\n" +
+        "去年，我一共得了两张奖状。一张是运动小健将的奖状，另一张是百里路小学冬锻跳绳比赛二年级段男子组第一名的奖状。我明白：只要努力，一定会有收获的。\n" +
+        "\n" +
+        "每次我考到一百分的时候，爸爸妈妈就会奖励我，我也非常高兴。有一次我考了一百分，妈妈买了一个有轮子的书包给我。我考了一百分，爸爸总会带我去吃肯德基。\n" +
+        "\n" +
+        "所以，在新学期里，我要更加努力，再创佳绩！", //自我介绍
     };
   }, 1000);
 });
@@ -124,6 +167,8 @@ onMounted(() => {
  *  说明：
  */
 const submitForm = () => {
+  console.log("提交数据:");
+  console.log(personData.value);
   button_loadding.value = true;
   button_text.value = "提交中...";
   // 模拟提交请求，3秒后结束
@@ -132,6 +177,16 @@ const submitForm = () => {
     button_text.value = "提 交";
   }, 3000);
 };
+
+/**
+ * 根据字符串数字-获取性别
+ *  作者：小青龙
+ *  时间：2023/02/08 11:09:16
+ *  说明：
+ */
+const exchangeSex = (val) => {
+  return val === "1" ? "男" : "女";
+};
 </script>
 
 <style>
@@ -139,10 +194,11 @@ const submitForm = () => {
   background-color: #ebebeb;
   width: 100%;
   height: 100%;
-  padding-top: 40px;
+  overflow-y: scroll; /** 超出屏幕，可以滚动 */
 }
 
 .person_info_div .el_image {
+  margin-top: 40px;
   width: 100px;
   height: 100px;
   border-radius: 50px;
@@ -155,5 +211,6 @@ const submitForm = () => {
   margin-top: 40px;
   width: 50%;
   background-color: #42b983;
+  margin-bottom: 20px;
 }
 </style>

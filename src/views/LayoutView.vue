@@ -88,7 +88,7 @@ const listJson = {
       parent_id: "0",
       iconName: require("/src/assets/home/icon-home.png"),
       title: "项目介绍",
-      page: "/layoutView/bodyView",
+      page: "/layoutView/introduceProjectView",
       childrens: [],
     },
     {

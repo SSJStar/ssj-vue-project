@@ -214,7 +214,7 @@ function loginActionFunc() {
         );
       }
     }
-  }, 3000);
+  }, 1500);
 }
 
 /**

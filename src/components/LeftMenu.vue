@@ -343,7 +343,7 @@
         active-text-color="#ffd04b"
         v-bind:background-color="staticVars.BACKGROUNBD_COLOR"
         class="el-menu-vertical-demo"
-        default-active="4"
+        :default-active="sel"
         text-color="#fff"
         @open="handleOpen"
         @close="handleClose"
@@ -444,6 +444,8 @@ onMounted(() => {
   console.log("333333:");
   console.log(staticVars.BACKGROUNBD_COLOR);
 });
+
+const sel = "1";
 // 折叠还是展开
 let isCollapse = ref(false);
 
