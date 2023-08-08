@@ -29,7 +29,7 @@
 
 <script>
 import HeadNav from "@/components/HeadNav";
-import LeftMenu from "@/components/LeftMenu";
+import LeftMenu from "@/views/LeftMenu";
 // import PersonInfoView from "@/views/PersonInfoView.vue";
 import BodyView from "@/views/MenuBodyView.vue";
 
@@ -95,7 +95,7 @@ const listJson = {
       index: "2",
       parent_id: "0",
       iconName: require("/src/assets/home/icon-home.png"),
-      title: "文章",
+      title: "帖子",
       page: "/layoutView/barListView",
       childrens: [],
     },
@@ -169,7 +169,7 @@ const listJson = {
               index: "4-2-1",
               parent_id: "4-2",
               iconName: "",
-              title: "弹窗",
+              title: "柱状图",
               page: "/layoutView/bTChatViewOld",
               childrens: [],
             },

@@ -1,8 +1,16 @@
 <template>
+  <!-- 背景：粒子动画  -->
+  <Particles
+    id="tsparticles"
+    :particlesInit="particlesInit"
+    :particlesLoaded="particlesLoaded"
+    class="login__particles"
+    :options="particles"
+  />
   <div id="login">
-    <div id="background-div">
-      <img src="@/assets/keji_bg.png" />
-    </div>
+    <!--    <div id="background-div">-->
+    <!--      <img src="@/assets/keji_bg.png" />-->
+    <!--    </div>-->
 
     <div id="login-module-div">
       <h1 class="lmd-title">欢迎登录</h1>
@@ -86,6 +94,20 @@ import router from "../../router";
 import { ssjAlert } from "@/components/servicedialog/ssj-dialog";
 import UpdatePasswordView from "@/views/login/UpdatePasswordView.vue";
 import sessionStorageManager from "@/statics/sessionStorageManager.js";
+// 粒子效果，particles、loadSlim
+import { particles } from "@/views/other/particles.js";
+import { loadSlim } from "tsparticles-slim"; // if you are going to use `loadSlim`, install the "tsparticles-slim" package too.
+
+/** 粒子效果 -  START */
+const particlesInit = async (engine) => {
+  console.log("particlesInit");
+  await loadSlim(engine);
+};
+
+const particlesLoaded = async (container) => {
+  console.log("Particles container loaded", container);
+};
+/** 粒子效果 -  END */
 
 // 定义一个对象，用来存放输入的账号、密码、验证码
 let loginInput = {
@@ -399,7 +421,7 @@ const makeCode = (o, l) => {
     linear,
     100% 0,
     0 0,
-    from(rgb(58 96 199)),
+    from(rgba(58, 96, 199, 0.8)),
     to(rgb(57 63 187))
   );
 

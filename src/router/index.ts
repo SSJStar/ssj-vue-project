@@ -35,19 +35,19 @@ const routes = [
       // 项目介绍
       {
         path: "introduceProjectView",
-        name: "introduceProjectView",
+        name: "1",
         component: () => import("../views/IntroduceProjectView.vue"),
       },
       // 子路由
       {
         path: "bodyView",
-        name: "childBodyView",
+        name: "3-2",
         component: () => import("../views/MenuBodyView.vue"),
       },
-      // 文章列表
+      // 帖子列表
       {
         path: "barListView",
-        name: "barListView",
+        name: "2",
         component: () => import("../views/post_bar/BarListView.vue"),
       },
       // 文章详情
@@ -59,13 +59,13 @@ const routes = [
       // 新增文章
       {
         path: "addNewBarView",
-        name: "addNewBarView",
+        name: "3-1",
         component: () => import("../views/post_bar/AddNewBarView.vue"),
       },
       // 我的收藏
       {
         path: "collectionListView",
-        name: "collectionListView",
+        name: "3-3",
         component: () => import("../views/post_bar/BarCollectionListView.vue"),
       },
       //个人中心
@@ -78,13 +78,13 @@ const routes = [
       {
         //xlsx文件的读取和导出
         path: "xlsxView",
-        name: "xlsxView",
+        name: "4-1",
         component: () => import("../views/XlsxView.vue"),
       },
       {
         //直方图
         path: "btChatView",
-        name: "btChatView",
+        name: "4-2-1",
         component: () => import("../views/BTChatView.vue"),
       },
       {
@@ -100,12 +100,12 @@ const routes = [
       },
       {
         path: "wy",
-        name: "wy",
+        name: "4-2-2",
         component: () => import("@/views/wymusic/WYMusicView.vue"),
       },
       {
         path: "xiaomi",
-        name: "xiaomi",
+        name: "4-2-3",
         component: () => import("@/views/xiaomi/XiaoMiView.vue"),
       },
     ],
