@@ -26,6 +26,19 @@ app.use(ElementPlus, {
 
 app.use(Particles); //粒子效果
 
+app.directive("test", {
+  mounted() {
+    console.log("全局自定义指令 - test");
+  },
+});
+
+app.directive("marginTop", {
+  mounted(el, binding) {
+    console.log("调用marginTop");
+    el.style.marginTop = binding.value + "px";
+  },
+});
+
 // app.use(ElementPlus, { locale: zhCn });
 // app.use(SubDialog)
 

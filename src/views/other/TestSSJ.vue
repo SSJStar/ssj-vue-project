@@ -111,136 +111,40 @@
 <!--}-->
 <!--</style>-->
 
-<!--粒子效果-->
+<!-- 粒子动画2 -->
 <!--<template>-->
-<!--  <div-->
-<!--    class="box"-->
-<!--    style="-->
-<!--      position: absolute;-->
-<!--      width: 100%;-->
-<!--      height: 100%;-->
-<!--      background-color: #2c3e50;-->
-<!--    "-->
-<!--  >-->
-<!--    <Particles id="tsparticles" class="login-partic" :options="options" />-->
-<!--  </div>-->
+<!--  <Particles-->
+<!--    id="tsparticles"-->
+<!--    :particlesInit="particlesInit"-->
+<!--    :particlesLoaded="particlesLoaded"-->
+<!--    class="login__particles"-->
+<!--    :options="particles"-->
+<!--  />-->
 <!--</template>-->
 
 <!--<script setup>-->
-<!--import { reactive, toRefs } from "vue";-->
+<!--//背景动画-->
+<!--// 要看清楚这里的 particles 是个Js 文件!!-->
+<!--import { particles } from "@/views/other/particles.js";-->
+<!--import { loadSlim } from "tsparticles-slim"; // if you are going to use `loadSlim`, install the "tsparticles-slim" package too.-->
 
-<!--const data = reactive({-->
-<!--  options: {-->
-<!--    fpsLimit: 50,-->
-<!--    interactivity: {-->
-<!--      events: {-->
-<!--        onClick: {-->
-<!--          enable: true,-->
-<!--          mode: "push",-->
-<!--        },-->
-<!--        onHover: {-->
-<!--          enable: true,-->
-<!--          mode: "grab",-->
-<!--        },-->
-<!--        resize: true,-->
-<!--      },-->
-<!--      modes: {-->
-<!--        bubble: {-->
-<!--          distance: 400,-->
-<!--          duration: 2,-->
-<!--          opacity: 0.6,-->
-<!--          size: 10,-->
-<!--        },-->
-<!--        push: {-->
-<!--          quantity: 4,-->
-<!--        },-->
-<!--        repulse: {-->
-<!--          distance: 200,-->
-<!--          duration: 0.4,-->
-<!--        },-->
-<!--      },-->
-<!--    },-->
-<!--    particles: {-->
-<!--      color: {-->
-<!--        value: "#ffffff",-->
-<!--      },-->
-<!--      links: {-->
-<!--        color: "#ffffff",-->
-<!--        distance: 150,-->
-<!--        enable: true,-->
-<!--        opacity: 0.5,-->
-<!--        width: 1,-->
-<!--      },-->
-<!--      collisions: {-->
-<!--        enable: true,-->
-<!--      },-->
-<!--      move: {-->
-<!--        direction: "none",-->
-<!--        enable: true,-->
-<!--        outMode: "bounce",-->
-<!--        random: false,-->
-<!--        speed: 2,-->
-<!--        straight: false,-->
-<!--      },-->
-<!--      number: {-->
-<!--        density: {-->
-<!--          enable: true,-->
-<!--          value_area: 800,-->
-<!--        },-->
-<!--        value: 60,-->
-<!--      },-->
-<!--      opacity: {-->
-<!--        value: 0.5,-->
-<!--      },-->
-<!--      shape: {-->
-<!--        type: "circle",-->
-<!--      },-->
-<!--      size: {-->
-<!--        random: true,-->
-<!--        value: 3,-->
-<!--      },-->
-<!--    },-->
-<!--    detectRetina: true,-->
-<!--  },-->
-<!--});-->
+<!--const particlesInit = async (engine) => {-->
+<!--  //await loadFull(engine);-->
+<!--  await loadSlim(engine);-->
+<!--};-->
 
-<!--const { options } = toRefs(data); // 直接解构出来，页面上就不用data.options了-->
+<!--const particlesLoaded = async (container) => {-->
+<!--  console.log("Particles container loaded", container);-->
+<!--};-->
 <!--</script>-->
 
 <template>
-  <!--  <div class="dd">-->
-  <!--    1-->
-  <Particles
-    id="tsparticles"
-    :particlesInit="particlesInit"
-    :particlesLoaded="particlesLoaded"
-    class="login__particles"
-    :options="particles"
-  />
-  <!--  </div>-->
+  <div style="display: flex; flex-direction: column">
+    <input placeholder="占位" />
+    <input placeholder="自定义指令：margin-top" v-margin-top="topV" />
+  </div>
 </template>
 
 <script setup>
-//背景动画
-// 要看清楚这里的 particles 是个Js 文件!!
-import { particles } from "@/views/other/particles.js";
-import { loadSlim } from "tsparticles-slim"; // if you are going to use `loadSlim`, install the "tsparticles-slim" package too.
-
-const particlesInit = async (engine) => {
-  //await loadFull(engine);
-  await loadSlim(engine);
-};
-
-const particlesLoaded = async (container) => {
-  console.log("Particles container loaded", container);
-};
+let topV = 80;
 </script>
-
-<style>
-/*.dd {*/
-/*  width: 50%;*/
-/*  height: 50%;*/
-/*  background-color: #42b983;*/
-/*  position: absolute;*/
-/*}*/
-</style>

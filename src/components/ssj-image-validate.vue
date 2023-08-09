@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 
 const props = defineProps({
   identifyCode: {
@@ -101,7 +101,7 @@ const drawText = (ctx, txt, i) => {
   ctx.font = randomNum(props.fontSizeMin, props.fontSizeMax) + "px SimHei";
   let x = (i + 1) * (props.contentWidth / (props.identifyCode.length + 1));
   let y = randomNum(props.fontSizeMax, props.contentHeight - 5);
-  var deg = randomNum(-45, 45);
+  let deg = randomNum(-45, 45);
   // 修改坐标原点和旋转角度
   ctx.translate(x, y);
   ctx.rotate((deg * Math.PI) / 180);
@@ -154,6 +154,14 @@ const drawPic = () => {
 
 onMounted(() => {
   drawPic();
+  // 监听props.identifyCode变化，验证码图片更新
+  watch(
+    () => props.identifyCode,
+    (newValue, oldValue) => {
+      // console.log(`旧：${oldValue}  新：${newValue}`);
+      drawPic();
+    }
+  );
 });
 </script>
 <!--<style scoped lang='scss'>-->

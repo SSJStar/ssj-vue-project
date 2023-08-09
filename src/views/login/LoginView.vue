@@ -1,12 +1,15 @@
-<template>
+<template id="hh">
   <!-- 背景：粒子动画  -->
-  <Particles
-    id="tsparticles"
-    :particlesInit="particlesInit"
-    :particlesLoaded="particlesLoaded"
-    class="login__particles"
-    :options="particles"
-  />
+  <div id="gg">
+    <Particles
+      id="tsparticles"
+      :particlesInit="particlesInit"
+      :particlesLoaded="particlesLoaded"
+      class="login__particles"
+      :options="particles"
+      :v-if="particlesShow"
+    />
+  </div>
   <div id="login">
     <!--    <div id="background-div">-->
     <!--      <img src="@/assets/keji_bg.png" />-->
@@ -89,14 +92,15 @@
 import { Avatar, Lock, Check } from "@element-plus/icons-vue";
 import imageValidate from "@/components/ssj-image-validate.vue"; //图形验证码组件
 import { doUpdatePwd, getUpdatePwdCode, loginWithUNameAndPwd } from "@/api/api";
-import { getCurrentInstance, ref } from "vue";
+import { getCurrentInstance, onBeforeUnmount, onMounted, ref } from "vue";
 import router from "../../router";
 import { ssjAlert } from "@/components/servicedialog/ssj-dialog";
 import UpdatePasswordView from "@/views/login/UpdatePasswordView.vue";
 import sessionStorageManager from "@/statics/sessionStorageManager.js";
 // 粒子效果，particles、loadSlim
 import { particles } from "@/views/other/particles.js";
-import { loadSlim } from "tsparticles-slim"; // if you are going to use `loadSlim`, install the "tsparticles-slim" package too.
+import { loadSlim } from "tsparticles-slim";
+// import Particles from "particles.vue3"; // if you are going to use `loadSlim`, install the "tsparticles-slim" package too.
 
 /** 粒子效果 -  START */
 const particlesInit = async (engine) => {
@@ -108,6 +112,17 @@ const particlesLoaded = async (container) => {
   console.log("Particles container loaded", container);
 };
 /** 粒子效果 -  END */
+
+onMounted(() => {
+  // let particlesCanvas = document.getElementsByTagName("canvas")[0];
+  // particlesCanvas.style.height = "100px";
+  console.log("111");
+  let particlesCanvas = document
+    .getElementById("gg")
+    .getElementsByTagName("canvas")[1];
+  console.log(document.getElementsByTagName("canvas").length);
+  // particlesCanvas.style.height = "100px"; //tsparticles
+});
 
 // 定义一个对象，用来存放输入的账号、密码、验证码
 let loginInput = {
@@ -123,6 +138,7 @@ const button_text = ref("登 录"); //按钮提示文字
 let identifyCodes = "1234567890abcdefghijklmnopqrstuvwxyz"; //随机数-数据源
 let identifyCode = ref("3212"); //当前随机数，初始值为3212，identifyCode用于存放随机数值
 
+let particlesShow = ref(false); // Particles显示与否
 /**
  * 非空校验，如果发现为空会alert弹窗提示
  *
@@ -385,6 +401,7 @@ function codeChangeHandle(e) {
 
 //点击事件 - 刷新验证码
 const refreshCode = () => {
+  console.log("refreshCoderefreshCoderefreshCoderefreshCode");
   identifyCode.value = "";
   makeCode(identifyCodes, 4);
 };
