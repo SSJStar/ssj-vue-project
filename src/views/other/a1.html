@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>蒙层</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+        .box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 300px;
+            background: skyblue;
+        }
+        .mask {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                show: false,
+            };
+        },
+        methods: {
+            handleClick() {
+                this.show = !this.show;
+            },
+        },
+        template: `
+          <div class="box">
+            <button @click="handleClick">点我变蒙层</button>
+            <div class="mask" v-show="show"></div>
+          </div>
+          `,
+    });
+    const vm = app.mount("#root");
+</script>
+</body>
+</html>

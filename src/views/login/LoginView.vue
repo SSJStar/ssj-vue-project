@@ -10,6 +10,7 @@
       :v-if="particlesShow"
     />
   </div>
+  <!--  <TT1 style="width: 200px; height: 200px"></TT1>-->
   <div id="login">
     <!--    <div id="background-div">-->
     <!--      <img src="@/assets/keji_bg.png" />-->
@@ -59,11 +60,11 @@
 
         <!-- 图形 -->
         <div class="imgCode-imageValidate-div" @click="refreshCode">
-          <imageValidate
+          <ImageValidate
             :contentWidth="100"
             :contentHeight="40"
             :identifyCode="identifyCode"
-          ></imageValidate>
+          ></ImageValidate>
         </div>
       </div>
 
@@ -90,7 +91,7 @@
 
 <script setup>
 import { Avatar, Lock, Check } from "@element-plus/icons-vue";
-import imageValidate from "@/components/ssj-image-validate.vue"; //图形验证码组件
+import ImageValidate from "@/components/ssj-image-validate.vue"; //图形验证码组件
 import { doUpdatePwd, getUpdatePwdCode, loginWithUNameAndPwd } from "@/api/api";
 import { getCurrentInstance, onBeforeUnmount, onMounted, ref } from "vue";
 import router from "../../router";
@@ -100,28 +101,36 @@ import sessionStorageManager from "@/statics/sessionStorageManager.js";
 // 粒子效果，particles、loadSlim
 import { particles } from "@/views/other/particles.js";
 import { loadSlim } from "tsparticles-slim";
+
+// import Particles from "particles.vue3";
+
 // import Particles from "particles.vue3"; // if you are going to use `loadSlim`, install the "tsparticles-slim" package too.
 
 /** 粒子效果 -  START */
+// const particlesNeedDestory = ref(false);
+let containerV = null;
+// particles初始化
 const particlesInit = async (engine) => {
-  console.log("particlesInit");
   await loadSlim(engine);
 };
-
+// 粒子已被加载到容器
 const particlesLoaded = async (container) => {
+  if (container) {
+    containerV = container;
+  }
   console.log("Particles container loaded", container);
 };
 /** 粒子效果 -  END */
 
-onMounted(() => {
-  // let particlesCanvas = document.getElementsByTagName("canvas")[0];
-  // particlesCanvas.style.height = "100px";
-  console.log("111");
-  let particlesCanvas = document
-    .getElementById("gg")
-    .getElementsByTagName("canvas")[1];
-  console.log(document.getElementsByTagName("canvas").length);
-  // particlesCanvas.style.height = "100px"; //tsparticles
+// FIXME: 生命周期 - 销毁前
+onBeforeUnmount(() => {
+  //打印容器containerV，由函数「particlesLoaded」得到
+  console.log(containerV);
+  if (containerV) {
+    console.log("开始 containerV.destroy()");
+    containerV.destroy();
+  }
+  console.log("开始销毁登陆页");
 });
 
 // 定义一个对象，用来存放输入的账号、密码、验证码

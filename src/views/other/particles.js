@@ -623,7 +623,7 @@ export const particles = {
     number: {
       density: {
         enable: true,
-        area: 800,
+        area: 1000,
       },
       value: 80,
     },
@@ -637,6 +637,10 @@ export const particles = {
       random: true,
       value: 5,
     },
+  },
+  style: {
+    width: "100%",
+    height: "100%",
   },
   detectRetina: true,
 };
